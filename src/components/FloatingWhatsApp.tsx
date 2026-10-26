@@ -7,7 +7,7 @@ export default function FloatingWhatsApp() {
     "https://wa.me/919876543210?text=Hi%20LUXEWASH,%20I%20would%20like%20to%20inquire%20about%20doorstep%20laundry%20and%20dry%20cleaning.";
 
   return (
-    <aside aria-label="WhatsApp quick chat" className="fixed bottom-20 right-4 sm:right-6 z-50">
+    <aside aria-label="WhatsApp quick chat" className="fixed bottom-6 right-4 sm:right-6 z-50">
       <a
         href="#"
         onClick={(e) => e.preventDefault()}

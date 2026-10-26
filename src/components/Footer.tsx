@@ -31,7 +31,7 @@ export default function Footer() {
         </p>
 
         {/* Concise Contact Details */}
-        <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm text-purple-300/80 font-body pt-1">
+        <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-sm sm:text-base text-purple-300/80 font-body pt-1">
           <div className="flex items-center gap-2">
             <Phone className="w-4 h-4 text-[#d4af37]" />
             <span>+91 98765 43210</span>
@@ -47,7 +47,7 @@ export default function Footer() {
         </div>
 
       
-        <div className="pt-4 border-t border-purple-900/40 text-xs text-white font-body">
+        <div className="pt-4 border-t border-purple-900/40 text-sm text-white font-body">
           &copy; 2026 LUXEWASH Commercial Laundry Solutions. All rights reserved.
         </div>
       </div>

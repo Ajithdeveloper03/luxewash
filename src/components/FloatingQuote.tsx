@@ -120,10 +120,10 @@ export default function FloatingQuote() {
 
   return (
     <>
-      {/* Floating Button on Bottom-Right strictly in Logo Royal Purple & Gold */}
+      {/* Floating Button on Bottom-Left strictly in Logo Royal Purple & Gold */}
       <aside
         aria-label="Request a quote quick action"
-        className="fixed bottom-6 right-4 sm:right-6 z-50"
+        className="fixed bottom-6 left-4 sm:left-6 z-50"
       >
         <button
           type="button"
@@ -140,7 +140,7 @@ export default function FloatingQuote() {
           </div>
 
           {/* Text */}
-          <span className="font-bold text-xs sm:text-sm tracking-wide text-white relative z-10 font-body">
+          <span className="font-bold text-sm tracking-wide text-white relative z-10 font-body">
             Request a Quote
           </span>
 
@@ -171,7 +171,7 @@ export default function FloatingQuote() {
                 <X className="w-5 h-5" />
               </button>
 
-              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#f3cf65] mb-2 font-body">
+              <div className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-[#f3cf65] mb-2 font-body">
                 <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
                 <span>Request a Commercial Quote</span>
               </div>
@@ -179,7 +179,7 @@ export default function FloatingQuote() {
               <h3 className="text-xl sm:text-2xl font-bold font-display tracking-tight text-white">
                 Get Your Customized Laundry Proposal
               </h3>
-              <p className="text-xs sm:text-sm text-purple-200/90 mt-1 max-w-lg font-body">
+              <p className="text-sm text-purple-200/90 mt-1 max-w-lg font-body">
                 Tailored service arrangements, volume pricing, and dependable delivery schedules for your organization.
               </p>
             </div>
@@ -212,7 +212,7 @@ export default function FloatingQuote() {
                   {/* Row 1: Company Name & Contact Person */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 font-body">
+                      <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider mb-1 font-body">
                         Company or Organization Name *
                       </label>
                       <div className="relative">
@@ -231,7 +231,7 @@ export default function FloatingQuote() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 font-body">
+                      <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider mb-1 font-body">
                         Contact Person&apos;s Name *
                       </label>
                       <div className="relative">
@@ -253,7 +253,7 @@ export default function FloatingQuote() {
                   {/* Row 2: Business Email & Phone Number */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 font-body">
+                      <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider mb-1 font-body">
                         Business Email Address *
                       </label>
                       <div className="relative">
@@ -272,7 +272,7 @@ export default function FloatingQuote() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 font-body">
+                      <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider mb-1 font-body">
                         Phone Number *
                       </label>
                       <div className="relative">
@@ -294,7 +294,7 @@ export default function FloatingQuote() {
                   {/* Row 3: Industry & City/Service Location */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 font-body">
+                      <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider mb-1 font-body">
                         Industry or Business Type *
                       </label>
                       <select
@@ -313,7 +313,7 @@ export default function FloatingQuote() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 font-body">
+                      <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider mb-1 font-body">
                         City &amp; Service Location *
                       </label>
                       <div className="relative">
@@ -335,7 +335,7 @@ export default function FloatingQuote() {
                   {/* Row 4: Estimated Volume & Preferred Collection Frequency */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 font-body">
+                      <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider mb-1 font-body">
                         Estimated Laundry Volume (Day/Week) *
                       </label>
                       <div className="relative">
@@ -357,7 +357,7 @@ export default function FloatingQuote() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 font-body">
+                      <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider mb-1 font-body">
                         Preferred Collection Frequency *
                       </label>
                       <div className="relative">
@@ -381,7 +381,7 @@ export default function FloatingQuote() {
 
                   {/* Row 5: Type of Laundry Required (Pills/Checkboxes) */}
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 font-body">
+                    <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider mb-1.5 font-body">
                       Type of Laundry Required *
                     </label>
                     <div className="flex flex-wrap gap-2">
@@ -392,7 +392,7 @@ export default function FloatingQuote() {
                             type="button"
                             key={serv}
                             onClick={() => toggleService(serv)}
-                            className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all border cursor-pointer select-none font-body ${
+                            className={`px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all border cursor-pointer select-none font-body ${
                               isSelected
                                 ? "bg-[#2E0854] text-white border-[#2E0854] shadow-xs"
                                 : "bg-purple-50/50 text-slate-700 border-purple-200/60 hover:bg-purple-50"
@@ -410,7 +410,7 @@ export default function FloatingQuote() {
 
                   {/* Row 6: Additional Specific Notes (Optional) */}
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 font-body">
+                    <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider mb-1 font-body">
                       Additional Details / Special Handling (Optional)
                     </label>
                     <textarea
@@ -433,7 +433,7 @@ export default function FloatingQuote() {
                       <span className="text-[#f3cf65]">Submit Commercial Quote Request</span>
                       <ArrowRight className="w-4 h-4 text-amber-300" />
                     </button>
-                    <p className="text-center text-[11px] text-slate-500 mt-2 font-body">
+                    <p className="text-center text-sm text-slate-500 mt-2 font-body">
                       Confidential business proposal • Guaranteed commercial volume pricing
                     </p>
                   </div>

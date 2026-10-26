@@ -7,14 +7,24 @@ import { ArrowRight } from "lucide-react";
 import { getAssetPath } from "@/lib/constants";
 
 const FRAME_COUNT = 210;
-const FRAME_EXT = "webp"; // change to "jpg" if you extracted JPG frames
+const FRAME_EXT = "webp";
 
 const framePath = (i: number) =>
   getAssetPath(`/frames/frame_${String(i + 1).padStart(4, "0")}.${FRAME_EXT}`);
 
+// Elegant serif used in the reference design (falls back gracefully if the font isn't loaded)
+const SERIF =
+  'var(--font-playfair), "Playfair Display", "Cormorant Garamond", Georgia, "Times New Roman", serif';
+
+const PURPLE = "#2B0B4A";
+const GOLD = "#B8863B";
+
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const leftPanelRef = useRef<HTMLDivElement>(null);
+  const rightPanelRef = useRef<HTMLDivElement>(null);
+  const isGlassActiveRef = useRef<boolean>(false);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -89,7 +99,7 @@ export default function Hero() {
 
     window.addEventListener("resize", resize);
 
-    const scrubDistance = window.innerWidth < 768 ? 1800 : 2600;
+    const scrubDistance = window.innerWidth < 768 ? 1600 : 2400;
 
     // Video plays over the first 80% of the scroll, then holds the last frame
     const tl = gsap.timeline({
@@ -113,6 +123,26 @@ export default function Hero() {
         onUpdate: () => {
           const idx = Math.round(state.frame);
           if (idx !== lastDrawn) draw(idx);
+
+          // Hero light glassy background only comes in larger devices after frame 140 strictly
+          const shouldBeGlass = idx >= 140;
+          if (shouldBeGlass !== isGlassActiveRef.current) {
+            isGlassActiveRef.current = shouldBeGlass;
+            if (leftPanelRef.current) {
+              if (shouldBeGlass) {
+                leftPanelRef.current.classList.add("hero-glass-active");
+              } else {
+                leftPanelRef.current.classList.remove("hero-glass-active");
+              }
+            }
+            if (rightPanelRef.current) {
+              if (shouldBeGlass) {
+                rightPanelRef.current.classList.add("hero-glass-active");
+              } else {
+                rightPanelRef.current.classList.remove("hero-glass-active");
+              }
+            }
+          }
         },
       },
       0
@@ -126,11 +156,21 @@ export default function Hero() {
     };
   }, []);
 
+  const goToServices = () => {
+    if (typeof window === "undefined") return;
+    const el = document.getElementById("services");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      window.dispatchEvent(new CustomEvent("open-quote-modal"));
+    }
+  };
+
   return (
     <section id="home" className="relative z-10 w-full bg-white">
       <div
         ref={containerRef}
-        className="relative isolate w-full min-h-[100svh] overflow-hidden bg-white flex flex-col justify-between pt-16 sm:pt-20 pb-6 lg:h-screen lg:min-h-screen lg:flex-row lg:items-center lg:py-0"
+        className="relative isolate w-full min-h-[100svh] overflow-hidden bg-white flex flex-col justify-between pt-16 sm:pt-20 pb-4 lg:h-screen lg:min-h-screen lg:flex-row lg:items-center lg:py-0"
       >
         {/* LAYER 1: Canvas frame sequence */}
         <div className="absolute inset-0 w-full h-full overflow-hidden z-0 pointer-events-none">
@@ -152,74 +192,109 @@ export default function Hero() {
           />
         </div>
 
-        {/* LAYER 3: Content */}
-        <div className="relative z-20 w-full max-w-none h-full flex flex-col justify-between lg:flex-row lg:items-center px-3 sm:px-4 md:px-5 lg:px-6 xl:px-8 py-4 sm:py-6 lg:py-0 pointer-events-none">
-          {/* LEFT COLUMN */}
-          <div className="w-full lg:w-[310px] xl:w-[340px] 2xl:w-[370px] flex flex-col justify-center space-y-3 sm:space-y-3.5 text-left z-20 pointer-events-auto shrink-0 bg-white/90 p-4 sm:p-5 rounded-2xl lg:bg-transparent lg:p-0 lg:rounded-none shadow-sm lg:shadow-none border border-purple-900/10 lg:border-none">
-            <div className="inline-flex items-center gap-2">
-              <span className="inline-block h-2 w-2 rounded-full bg-[#6B1D9E]" />
-              <span className="font-sans text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] text-[#6B1D9E]">
-                Commercial Laundry Solutions
-              </span>
-            </div>
-
-            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[2.6rem] xl:text-[2.95rem] font-extrabold leading-[1.08] tracking-tight text-[#1E0935]">
-              Luxury Care <br className="hidden sm:inline" />
-              for Every <br className="hidden sm:inline" />
-              Thread
+        {/* LAYER 3: Content (Container-Fluid with minimal edge gap) */}
+        <div className="relative z-20 w-full max-w-none h-full flex flex-col justify-between lg:flex-row lg:items-center px-3 sm:px-5 md:px-6 lg:px-8 xl:px-12 py-3 sm:py-5 lg:py-0 pointer-events-none">
+          {/* PRIMARY COLUMN (Left on desktop, Top on mobile/tablet) with light glassmorphism strictly after frame 140 on desktop */}
+          <div
+            ref={leftPanelRef}
+            className="w-full max-w-md mx-auto lg:mx-0 lg:w-[360px] xl:w-[420px] 2xl:w-[490px] flex flex-col justify-center text-left z-20 pointer-events-auto shrink-0 bg-white/45  hero-glass-panel p-6 sm:p-8 xl:p-9 rounded-3xl"
+          >
+            {/* Headline strictly with Playfair Display */}
+            <h1
+              className="font-playfair text-[2rem] sm:text-[2.5rem] md:text-[2.75rem] lg:text-[2.75rem] xl:text-[3.4rem] 2xl:text-[3.9rem] font-semibold leading-[1.04] tracking-[-0.01em]"
+              style={{ fontFamily: '"Playfair Display", Georgia, serif', color: PURPLE }}
+            >
+              Luxury Care for Every Thread
             </h1>
 
-            <div className="w-12 h-[2px] bg-amber-400/90 my-1" />
+            {/* Gold accent line */}
+            <div
+              className="w-14 sm:w-16 xl:w-[88px] h-[2px] mt-4 sm:mt-5 xl:mt-6"
+              style={{ backgroundColor: GOLD }}
+            />
 
-            <p className="font-sans text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
-              Expert laundry care. Impeccable results.
+            {/* Tagline */}
+            <p className="font-sans mt-4 sm:mt-5 text-base sm:text-lg xl:text-[1.35rem] leading-snug text-[#4B3A63] font-normal">
+              Expert laundry care.
+              <br />
+              Impeccable results.
             </p>
 
-            <div className="pt-1">
+            {/* Outlined pill button with Apple Glass feel */}
+            <div className="mt-5 sm:mt-6 xl:mt-7">
               <button
                 type="button"
-                onClick={() => {
-                  window.dispatchEvent(new CustomEvent("open-quote-modal"));
-                }}
-                className="group inline-flex items-center gap-2 rounded-full border border-purple-900/30 bg-white/95 hover:bg-white px-5 sm:px-6 py-2.5 text-xs sm:text-sm font-bold text-[#2E0854] shadow-md hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+                onClick={goToServices}
+                className="group inline-flex items-center gap-2 rounded-full border-[1.5px] bg-white/40 backdrop-blur-md px-6 sm:px-7 xl:px-8 py-2.5 sm:py-3 xl:py-3.5 text-sm xl:text-base font-bold transition-all duration-300 hover:text-white hover:shadow-lg active:scale-[0.98] cursor-pointer shadow-[0_4px_16px_rgba(46,8,84,0.06),inset_0_1px_1px_rgba(255,255,255,0.9)]"
+                style={{ borderColor: PURPLE, color: PURPLE }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = PURPLE)}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
               >
-                <span>Request a Quote</span>
-                <ArrowRight className="h-4 w-4 text-[#2E0854] transition-transform group-hover:translate-x-1" />
+                <span>Explore Our Services</span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </button>
             </div>
           </div>
 
-          {/* CENTER SPACER */}
+          {/* MOBILE/TABLET COMPACT BOTTOM PILL (< lg only) with light glassmorphism & text-sm */}
+          <div className="lg:hidden mx-auto max-w-sm w-full px-1 pointer-events-auto mt-2">
+            <div className="bg-white/50 backdrop-blur-2xl border border-white/75 shadow-[0_4px_20px_rgba(46,8,84,0.06),inset_0_1px_1px_rgba(255,255,255,0.9)] py-2.5 px-4 rounded-full flex items-center justify-between text-sm font-semibold text-[#2E0854]">
+              <span>✓ Bulk Linen Care</span>
+              <span className="text-[#D4AF37]">•</span>
+              <span>✓ Strict Hygiene</span>
+              <span className="text-[#D4AF37]">•</span>
+              <span>✓ Dependable Ops</span>
+            </div>
+          </div>
+
+          {/* CENTER SPACER (Desktop only) */}
           <div className="hidden lg:block flex-1 min-w-[30px]" aria-hidden="true" />
 
-          {/* RIGHT COLUMN */}
-          <div className="w-full lg:w-[280px] xl:w-[310px] 2xl:w-[340px] flex flex-col justify-center space-y-3 sm:space-y-3.5 text-left z-20 pointer-events-auto shrink-0 bg-white/90 p-4 sm:p-5 rounded-2xl lg:bg-transparent lg:p-0 lg:rounded-none shadow-sm lg:shadow-none border border-purple-900/10 lg:border-none">
-            <div className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] text-[#b58d20]">
-              <span className="text-amber-500">✦</span>
-              <span>PREMIUM LAUNDRY CARE</span>
-              <span className="text-amber-500">✦</span>
+          {/* SECONDARY COLUMN (Right on desktop only) with light glassmorphism strictly after frame 140 */}
+          <div
+            ref={rightPanelRef}
+            className="hidden lg:flex w-[300px] xl:w-[340px] 2xl:w-[380px] flex-col items-center justify-center text-center z-20 pointer-events-auto shrink-0 hero-glass-panel p-6 sm:p-8 xl:p-9 rounded-3xl"
+          >
+            {/* Diamond icon */}
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 32 32"
+              fill="none"
+              stroke={GOLD}
+              strokeWidth="1.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+              className="mb-3"
+            >
+              <path d="M16 3 L29 16 L16 29 L3 16 Z" />
+              <path d="M11 16 L16 11 L21 16" />
+              <path d="M11 20 L16 15 L21 20" />
+            </svg>
+
+            {/* Eyebrow: — PREMIUM LAUNDRY CARE — strictly text-sm */}
+            <div
+              className="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.28em]"
+              style={{ color: GOLD }}
+            >
+              <span className="block w-4 h-px" style={{ backgroundColor: GOLD }} />
+              <span>Premium Laundry Care</span>
+              <span className="block w-4 h-px" style={{ backgroundColor: GOLD }} />
             </div>
 
-            <h2 className="font-display text-xl sm:text-2xl lg:text-[1.65rem] xl:text-[1.75rem] font-extrabold leading-[1.2] text-[#1E0935]">
-              Thoughtful cleaning for the businesses you run.
+            {/* Heading strictly with Playfair Display */}
+            <h2
+              className="font-playfair mt-4 text-[1.55rem] xl:text-[1.9rem] 2xl:text-[2.1rem] font-normal leading-[1.18]"
+              style={{ fontFamily: '"Playfair Display", Georgia, serif', color: PURPLE }}
+            >
+              Thoughtful cleaning
+              <br />
+              for the clothes you love.
             </h2>
 
-            <div className="w-12 h-[2px] bg-amber-400/90 my-0.5" />
-
-            <div className="space-y-2 pt-0.5 font-sans text-xs sm:text-sm text-slate-700">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#6B1D9E] shrink-0" />
-                <span className="font-medium">100% Isolated Sanitized Drums</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#6B1D9E] shrink-0" />
-                <span className="font-medium">Scheduled Doorstep Turnaround</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#6B1D9E] shrink-0" />
-                <span className="font-medium">Custom Commercial Volume Rates</span>
-              </div>
-            </div>
+            {/* Gold line */}
+            <div className="w-16 xl:w-20 h-[2px] mt-5" style={{ backgroundColor: GOLD }} />
           </div>
         </div>
       </div>

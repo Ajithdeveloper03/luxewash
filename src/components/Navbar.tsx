@@ -96,7 +96,7 @@ export default function Navbar() {
                       key={subItem}
                       href="#services"
                       onClick={handleDisabledClick}
-                      className="block px-3.5 py-2.5 rounded-xl text-xs xl:text-sm font-semibold text-[#18042b] hover:bg-purple-50 hover:text-[#2E0854] transition-colors select-none"
+                      className="block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-[#18042b] hover:bg-purple-50 hover:text-[#2E0854] transition-colors select-none"
                     >
                       {subItem}
                     </a>
@@ -164,7 +164,7 @@ export default function Navbar() {
                     window.dispatchEvent(new CustomEvent("open-quote-modal"));
                   }
                 }}
-                className="hidden sm:inline-flex px-3.5 py-1.5 rounded-full text-xs font-bold text-[#f3cf65] bg-gradient-to-r from-[#1E0935] to-[#2E0854] border border-[#D4AF37]/50 hover:bg-[#4B1278] transition-all shadow-sm items-center gap-1.5 cursor-pointer select-none font-body"
+                className="hidden sm:inline-flex px-3.5 py-1.5 rounded-full text-sm font-bold text-[#f3cf65] bg-gradient-to-r from-[#1E0935] to-[#2E0854] border border-[#D4AF37]/50 hover:bg-[#4B1278] transition-all shadow-sm items-center gap-1.5 cursor-pointer select-none font-body"
               >
                 <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
                 <span>Request Quote</span>
@@ -228,7 +228,7 @@ export default function Navbar() {
                 className="flex items-center justify-between py-2.5 border-b border-white/5 group select-none transition-colors"
               >
                 <div className="flex items-baseline gap-3">
-                  <span className="text-xs font-display text-[#d4af37] font-semibold">01</span>
+                  <span className="text-sm font-display text-[#d4af37] font-semibold">01</span>
                   <span className="text-lg font-bold font-display text-white group-hover:text-[#d4af37] transition-colors">
                     Home
                   </span>
@@ -245,7 +245,7 @@ export default function Navbar() {
                 className="flex items-center justify-between py-2.5 border-b border-white/5 group select-none transition-colors"
               >
                 <div className="flex items-baseline gap-3">
-                  <span className="text-xs font-display text-[#d4af37] font-semibold">02</span>
+                  <span className="text-sm font-display text-[#d4af37] font-semibold">02</span>
                   <span className="text-lg font-bold font-display text-white group-hover:text-[#d4af37] transition-colors">
                     About Us
                   </span>
@@ -261,7 +261,7 @@ export default function Navbar() {
                   className="w-full flex items-center justify-between group select-none cursor-pointer"
                 >
                   <div className="flex items-baseline gap-3">
-                    <span className="text-xs font-display text-[#d4af37] font-semibold">03</span>
+                    <span className="text-sm font-display text-[#d4af37] font-semibold">03</span>
                     <span className="text-lg font-bold font-display text-white group-hover:text-[#d4af37] transition-colors">
                       Services
                     </span>
@@ -282,7 +282,7 @@ export default function Navbar() {
                           handleDisabledClick(e);
                           setMobileMenuOpen(false);
                         }}
-                        className="block text-xs sm:text-sm text-purple-200/80 py-1 hover:text-[#d4af37] transition-colors"
+                        className="block text-sm text-purple-200/80 py-1 hover:text-[#d4af37] transition-colors"
                       >
                         • {subItem}
                       </a>
@@ -300,7 +300,7 @@ export default function Navbar() {
                 className="flex items-center justify-between py-2.5 border-b border-white/5 group select-none transition-colors"
               >
                 <div className="flex items-baseline gap-3">
-                  <span className="text-xs font-display text-[#d4af37] font-semibold">04</span>
+                  <span className="text-sm font-display text-[#d4af37] font-semibold">04</span>
                   <span className="text-lg font-bold font-display text-white group-hover:text-[#d4af37] transition-colors">
                     Industries We Serve
                   </span>
@@ -317,7 +317,7 @@ export default function Navbar() {
                 className="flex items-center justify-between py-2.5 border-b border-white/5 group select-none transition-colors"
               >
                 <div className="flex items-baseline gap-3">
-                  <span className="text-xs font-display text-[#d4af37] font-semibold">05</span>
+                  <span className="text-sm font-display text-[#d4af37] font-semibold">05</span>
                   <span className="text-lg font-bold font-display text-white group-hover:text-[#d4af37] transition-colors">
                     Our Process
                   </span>
@@ -334,7 +334,7 @@ export default function Navbar() {
                 className="flex items-center justify-between py-2.5 border-b border-white/5 group select-none transition-colors"
               >
                 <div className="flex items-baseline gap-3">
-                  <span className="text-xs font-display text-[#d4af37] font-semibold">06</span>
+                  <span className="text-sm font-display text-[#d4af37] font-semibold">06</span>
                   <span className="text-lg font-bold font-display text-white group-hover:text-[#d4af37] transition-colors">
                     Contact Us
                   </span>
@@ -353,13 +353,13 @@ export default function Navbar() {
                     window.dispatchEvent(new CustomEvent("open-quote-modal"));
                   }
                 }}
-                className="w-full py-3 rounded-full text-center text-xs sm:text-sm font-bold text-[#f3cf65] bg-gradient-to-r from-[#1E0935] via-[#2E0854] to-[#4B1278] border border-[#D4AF37]/60 flex items-center justify-center gap-2 shadow-lg select-none hover:brightness-110 active:scale-95 transition-all cursor-pointer font-body"
+                className="w-full py-3 rounded-full text-center text-sm font-bold text-[#f3cf65] bg-gradient-to-r from-[#1E0935] via-[#2E0854] to-[#4B1278] border border-[#D4AF37]/60 flex items-center justify-center gap-2 shadow-lg select-none hover:brightness-110 active:scale-95 transition-all cursor-pointer font-body"
               >
                 <Sparkles className="w-4 h-4 text-[#D4AF37]" />
                 <span>Request a Commercial Quote</span>
               </button>
 
-              <div className="text-center text-[11px] text-purple-200/50 font-body">
+              <div className="text-center text-sm text-purple-200/60 font-body">
                 Reliable Commercial Laundry • Scheduled Pickup &amp; Delivery
               </div>
             </div>

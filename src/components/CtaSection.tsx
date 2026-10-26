@@ -13,7 +13,7 @@ export default function CtaSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14 space-y-3">
-          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#2E0854] font-body bg-white px-4 py-1.5 rounded-full border border-purple-200/80 shadow-xs">
+          <div className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-[#2E0854] font-body bg-white px-4 py-1.5 rounded-full border border-purple-200/80 shadow-xs">
             <span className="w-2 h-2 rounded-full bg-[#D4AF37] inline-block" />
             <span>CONTACT US</span>
           </div>
@@ -31,9 +31,9 @@ export default function CtaSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
           {/* Left Column: Direct Commercial Details */}
           <div className="lg:col-span-5 flex flex-col justify-between space-y-4">
-            <div className="p-6 sm:p-8 rounded-3xl bg-white border border-purple-100/80 shadow-lg shadow-purple-950/5 space-y-5">
-              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#b58d20] font-body">
-                <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
+            <div className="p-6 sm:p-8 rounded-3xl apple-glass border border-white/80 shadow-lg shadow-purple-950/5 space-y-5">
+              <div className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-[#b58d20] font-body">
+                <Sparkles className="w-4 h-4 text-[#D4AF37]" />
                 <span>Commercial Support &amp; Contracts</span>
               </div>
 
@@ -43,7 +43,7 @@ export default function CtaSection() {
                   <Phone className="w-5 h-5 stroke-[2]" />
                 </div>
                 <div>
-                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block font-body">
+                  <span className="text-sm font-bold text-slate-400 uppercase tracking-wider block font-body">
                     Phone &amp; Hotline
                   </span>
                   <a
@@ -53,7 +53,7 @@ export default function CtaSection() {
                   >
                     +91 98765 43210
                   </a>
-                  <p className="text-xs text-slate-500 font-body mt-0.5">
+                  <p className="text-sm text-slate-500 font-body mt-0.5">
                     Commercial desk: +91 98765 43211
                   </p>
                 </div>
@@ -65,7 +65,7 @@ export default function CtaSection() {
                   <Mail className="w-5 h-5 stroke-[2]" />
                 </div>
                 <div>
-                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block font-body">
+                  <span className="text-sm font-bold text-slate-400 uppercase tracking-wider block font-body">
                     Email Address
                   </span>
                   <a
@@ -75,7 +75,7 @@ export default function CtaSection() {
                   >
                     business@luxewash.com
                   </a>
-                  <p className="text-xs text-slate-500 font-body mt-0.5">
+                  <p className="text-sm text-slate-500 font-body mt-0.5">
                     Proposals: commercial@luxewash.com
                   </p>
                 </div>
@@ -87,7 +87,7 @@ export default function CtaSection() {
                   <MapPin className="w-5 h-5 stroke-[2]" />
                 </div>
                 <div>
-                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block font-body">
+                  <span className="text-sm font-bold text-slate-400 uppercase tracking-wider block font-body">
                     Facility &amp; Operations
                   </span>
                   <p className="text-sm font-semibold text-[#1E0935] font-body leading-snug">
@@ -102,13 +102,13 @@ export default function CtaSection() {
                   <Clock className="w-5 h-5 stroke-[2]" />
                 </div>
                 <div>
-                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block font-body">
+                  <span className="text-sm font-bold text-slate-400 uppercase tracking-wider block font-body">
                     Operating Schedule
                   </span>
                   <p className="text-sm font-semibold text-[#1E0935] font-body">
                     Mon – Sat: 7:00 AM – 9:00 PM
                   </p>
-                  <p className="text-xs text-[#b58d20] font-bold font-body mt-0.5">
+                  <p className="text-sm text-[#b58d20] font-bold font-body mt-0.5">
                     24/7 Scheduled Commercial Collections &amp; Deliveries
                   </p>
                 </div>
@@ -150,7 +150,7 @@ export default function CtaSection() {
               {/* Floating map location pill */}
               <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-4 py-2 rounded-2xl border border-purple-100 shadow-md flex items-center gap-2 pointer-events-none">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#2E0854] animate-pulse" />
-                <span className="text-xs font-bold text-[#1E0935] font-body">
+                <span className="text-sm font-bold text-[#1E0935] font-body">
                   Trichy Facility &amp; Central Processing Plant
                 </span>
               </div>

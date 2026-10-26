@@ -112,7 +112,7 @@ export default function Testimonials() {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           {/* Header */}
           <div className="space-y-2 text-left">
-            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#2E0854] font-body bg-purple-50 px-3.5 py-1 rounded-full border border-purple-200/50">
+            <div className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-[#2E0854] font-body bg-purple-50 px-3.5 py-1 rounded-full border border-purple-200/50">
               <span className="w-2 h-2 rounded-full bg-[#2E0854] inline-block" />
               <span>TESTIMONIALS</span>
             </div>
@@ -228,7 +228,7 @@ export default function Testimonials() {
                         {rev.name}
                       </h4>
                       <p
-                        className={`text-xs font-body ${
+                        className={`text-sm font-body ${
                           rev.hasImageBg ? "text-slate-300" : "text-slate-500"
                         }`}
                       >

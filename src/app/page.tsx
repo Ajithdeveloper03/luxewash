@@ -13,6 +13,7 @@ import Faqs from "@/components/Faqs";
 import CtaSection from "@/components/CtaSection";
 import Footer from "@/components/Footer";
 import FloatingQuote from "@/components/FloatingQuote";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import ScrollToTop from "@/components/ScrollToTop";
 
 export default function Home() {
@@ -51,10 +52,13 @@ export default function Home() {
       {/* Footer */}
       <Footer />
 
-      {/* Floating Quote Action Button on Bottom-Right */}
+      {/* Floating Quote Action Button on Bottom-Left */}
       <FloatingQuote />
 
-      {/* Scroll to Top Button at bottom left */}
+      {/* Floating WhatsApp Action Button on Bottom-Right */}
+      <FloatingWhatsApp />
+
+      {/* Scroll to Top Button above WhatsApp on Bottom-Right */}
       <ScrollToTop />
     </div>
   );

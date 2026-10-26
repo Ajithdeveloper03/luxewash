@@ -53,7 +53,7 @@ export default function Faqs() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-10 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-[#8a650c] text-xs font-semibold uppercase tracking-wider font-body">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-[#8a650c] text-sm font-semibold uppercase tracking-wider font-body">
             <Sparkles className="w-3.5 h-3.5 text-[#d4af37]" />
             <span>CLARITY &amp; TRANSPARENCY</span>
           </div>

@@ -114,8 +114,8 @@ export default function Stats() {
 
           {/* Minimal Section Header */}
           <div className="text-center max-w-xl mx-auto mb-8 sm:mb-10 space-y-2 relative z-10">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/70 backdrop-blur-md border border-purple-200/60 text-[#4B1278] text-xs font-bold uppercase tracking-wider font-body shadow-2xs">
-              <Sparkles className="w-3.5 h-3.5 text-[#C8961E]" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 backdrop-blur-md border border-purple-200/60 text-[#4B1278] text-sm font-bold uppercase tracking-wider font-body shadow-2xs">
+              <Sparkles className="w-4 h-4 text-[#C8961E]" />
               <span>Excellence in Numbers</span>
             </div>
             <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight font-display text-[#18042b]">
@@ -133,7 +133,7 @@ export default function Stats() {
                 </span>
                 <span className="text-[#C8961E]">+</span>
               </div>
-              <div className="text-xs sm:text-sm font-bold text-[#4B1278] font-body tracking-wide mt-2">
+              <div className="text-sm sm:text-base font-bold text-[#4B1278] font-body tracking-wide mt-2">
                 Kg Linen Processed
               </div>
             </div>
@@ -146,7 +146,7 @@ export default function Stats() {
                 </span>
                 <span className="text-[#C8961E]">%</span>
               </div>
-              <div className="text-xs sm:text-sm font-bold text-[#4B1278] font-body tracking-wide mt-2">
+              <div className="text-sm sm:text-base font-bold text-[#4B1278] font-body tracking-wide mt-2">
                 On-Time Dispatch
               </div>
             </div>
@@ -159,7 +159,7 @@ export default function Stats() {
                 </span>
                 <span className="text-[#C8961E]">h</span>
               </div>
-              <div className="text-xs sm:text-sm font-bold text-[#4B1278] font-body tracking-wide mt-2">
+              <div className="text-sm sm:text-base font-bold text-[#4B1278] font-body tracking-wide mt-2">
                 Turnaround SLA
               </div>
             </div>
@@ -172,7 +172,7 @@ export default function Stats() {
                 </span>
                 <span className="text-[#C8961E]">%</span>
               </div>
-              <div className="text-xs sm:text-sm font-bold text-[#4B1278] font-body tracking-wide mt-2">
+              <div className="text-sm sm:text-base font-bold text-[#4B1278] font-body tracking-wide mt-2">
                 Sanitized Standards
               </div>
             </div>
