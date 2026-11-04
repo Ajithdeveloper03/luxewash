@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { assetPath } from "@/lib/site";
 import { ArrowUpRight, ArrowDown } from "lucide-react";
 
 interface HeroSectionProps {
@@ -69,7 +70,7 @@ export default function HeroSection({ onOpenPlanCare }: HeroSectionProps) {
             <div className="relative w-full aspect-[4/3] sm:aspect-[16/11] rounded-sm overflow-hidden shadow-[0_20px_50px_rgba(36,10,62,0.12)] border border-[#e8e2d8]">
               
               <Image
-                src="/images/hotel-bedroom-hero.jpg"
+                src={assetPath("/images/hotel-bedroom-hero.jpg")}
                 alt="Luxury hotel bedroom suite with pristine fresh white linen duvet and pillows"
                 fill
                 priority

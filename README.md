@@ -1,5 +1,22 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Hostinger subfolder deployment
+
+This project is configured for static hosting at:
+
+`https://your-domain.com/luxewash/`
+
+Build the deployable files with:
+
+```bash
+npm run build
+```
+
+Upload the contents of the generated `out` folder into the Hostinger
+`public_html/luxewash` directory. Do not upload the `out` folder itself as a
+nested directory. The `basePath` and image paths are already configured for
+the `/luxewash` subfolder.
+
 ## Getting Started
 
 First, run the development server:

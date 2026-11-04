@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { assetPath } from "@/lib/site";
 import { Play, X } from "lucide-react";
 
 export default function StackSection() {
@@ -21,7 +22,7 @@ export default function StackSection() {
           {/* Background Laundry Photo with Rich Purple Overlay */}
           <div className="absolute inset-0 z-0 opacity-25 mix-blend-overlay">
             <Image
-              src="/images/video-laundry-bg.jpg"
+              src={assetPath("/images/video-laundry-bg.jpg")}
               alt="Deep cleaning laundry facility"
               fill
               className="object-cover object-center"
@@ -207,7 +208,7 @@ export default function StackSection() {
             {/* Video Showcase Image with play overlay */}
             <div className="relative h-[380px] sm:h-[440px] w-full">
               <Image
-                src="/images/video-laundry-bg.jpg"
+                src={assetPath("/images/video-laundry-bg.jpg")}
                 alt="Industrial laundry machines cleaning"
                 fill
                 className="object-cover object-center"

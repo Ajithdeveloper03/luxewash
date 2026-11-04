@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import { Mail, Phone, MapPin } from "lucide-react";
 
 import Image from "next/image";
+import { assetPath } from "@/lib/site";
 
 export default function SiteFooter() {
   return (
@@ -20,7 +20,7 @@ export default function SiteFooter() {
               <Link href="/" className="inline-block mb-3">
                 <div className="relative h-11 w-44">
                   <Image
-                    src="/images/logo-2.png"
+                    src={assetPath("/images/logo-2.png")}
                     alt="Luxewash"
                     fill
                     className="object-contain object-left"
@@ -101,7 +101,7 @@ export default function SiteFooter() {
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-purple-400/70 gap-4">
-          <p>© {new Date().getFullYear()} LuxeWash Linen Care &amp; Lesako Laundry. All rights reserved.</p>
+          <p>© 2026 LuxeWash Linen Care &amp; Lesako Laundry. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>

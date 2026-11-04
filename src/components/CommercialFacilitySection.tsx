@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { assetPath } from "@/lib/site";
 import { ArrowUpRight, ShieldCheck, Clock, Building2 } from "lucide-react";
 
 interface CommercialFacilitySectionProps {
@@ -81,7 +82,7 @@ export default function CommercialFacilitySection({ onOpenQuote }: CommercialFac
           
           <div className="relative aspect-[16/9] lg:aspect-[21/9] w-full">
             <Image
-              src="/images/industrial-facility.jpg"
+              src={assetPath("/images/industrial-facility.jpg")}
               alt="High-capacity commercial laundry plant with automated continuous batch tunnel washers and ironers"
               fill
               sizes="(max-width: 1280px) 100vw, 1360px"

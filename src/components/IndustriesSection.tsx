@@ -1,2 +1,31 @@
-﻿"\"use client\";\n\nimport React, { useState } from \"react\";\nimport { ArrowUpRight, CheckSquare, Calendar, Sparkles, PackageCheck } from \"lucide-react\";\n\ninterface IndustriesSectionProps {\n  onSelectIndustry: (industry: string) => void;\n}\n\nexport default function IndustriesSection({ onSelectIndustry }: IndustriesSectionProps) {\n  const [hoveredCard, setHoveredCard] = useState<number | null>(null);\n\n  const industries = [\n    {\n      id: \"hotels\",\n      step: \"STEP 01\",\n      stepColor: \"bg-purple-100/90 text-purple-900 border-purple-200\",\n      title: \"Requirement Assessment\",\n      description:\n        \"We understand your business operations, estimated daily laundry volume, textile categories, and pickup expectations.\",\n      cta: \"Discuss hospitality care\",\n      industryName: \"Hotels & Resorts\",\n      metaLeft: \"Volume Evaluation\",\n      metaRight: \"Service Scope\",\n      icon: <CheckSquare className=\"w-5 h-5 text-amber-300\" />,\n    },\n    {\n      id: \"restaurants\",\n      step: \"STEP 02\",\n      stepColor: \"bg-purple-100/90 text-purple-900 border-purple-200\",\n      title: \"Planning & Collection\",\n      description:\n        \"Scheduled collection from your facility with rigorous pre-sorting by fabric grade, color, and sanitization requirement.\",\n      cta: \"Discuss restaurant care\",\n      industryName: \"Restaurants & Catering\",\n      metaLeft: \"Timely Logistics\",\n      metaRight: \"Careful Sorting\",\n      icon: <Calendar className=\"w-5 h-5 text-amber-300\" />,\n    },\n    {\n      id: \"spas\",\n      step: \"STEP 03\",\n      stepColor: \"bg-purple-100/90 text-purple-900 border-purple-200\",\n      title: \"Washing & Finishing\",\n      description:\n        \"Textiles undergo isolated industrial drum washing, thermal disinfection, conditioning, and automatic calender ironing.\",\n      cta: \"Discuss spa care\",\n      industryName: \"Salons & Spas\",\n      metaLeft: \"Isolated Drums\",\n      metaRight: \"Steam Pressing\",\n      ico
-<truncated 6436 bytes>
+"use client";
+
+interface IndustriesSectionProps {
+  onSelectIndustry: (industry: string) => void;
+}
+
+const industries = ["Hotels & Resorts", "Restaurants & Catering", "Salons & Spas", "Healthcare & Institutions"];
+
+export default function IndustriesSection({ onSelectIndustry }: IndustriesSectionProps) {
+  return (
+    <section id="industries" className="bg-[#faf8f5] px-5 py-16 sm:px-8">
+      <div className="mx-auto max-w-[1200px]">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#6825a3]">Industries we serve</p>
+        <h2 className="mb-8 font-serif text-4xl text-[#191024]">Care built around your operation</h2>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {industries.map((industry) => (
+            <button
+              key={industry}
+              type="button"
+              onClick={() => onSelectIndustry(industry)}
+              className="border border-[#e4ded5] bg-white p-6 text-left transition hover:-translate-y-1 hover:shadow-md"
+            >
+              <span className="font-semibold text-[#240a3e]">{industry}</span>
+              <span className="mt-3 block text-sm text-[#554a61]">Explore a tailored commercial laundry plan.</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

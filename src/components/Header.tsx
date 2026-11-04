@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { assetPath } from "@/lib/site";
 import Link from "next/link";
 import {
   Mail,
@@ -113,7 +114,7 @@ export default function Header({
             <Link href="/" className="flex items-center">
               <div className="relative h-11 w-36 sm:h-12 sm:w-44">
                 <Image
-                  src="/images/luxewash-logo.jpg"
+                  src={assetPath("/images/luxewash-logo.jpg")}
                   alt="LUXE WASH"
                   fill
                   className="object-contain object-left"

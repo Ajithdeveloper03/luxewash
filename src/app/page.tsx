@@ -1,2 +1,48 @@
-"\"use client\";\n\nimport React, { useState } from \"react\";\nimport Navbar from \"@/components/Navbar\";\nimport IndustrialHeroBanner from \"@/components/IndustrialHeroBanner\";\nimport RibbonBanner from \"@/components/RibbonBanner\";\nimport HeroSection from \"@/components/HeroSection\";\nimport IndustriesSection from \"@/components/IndustriesSection\";\nimport ApproachSection from \"@/components/ApproachSection\";\nimport CommercialServicesSection from \"@/components/CommercialServicesSection\";\nimport ClientTestimonials from \"@/components/ClientTestimonials\";\nimport FAQSection from \"@/components/FAQSection\";\nimport PlanCareCTA from \"@/components/PlanCareCTA\";\nimport SiteFooter from \"@/components/SiteFooter\";\nimport PlanCareModal from \"@/components/PlanCareModal\";\n\nexport default function Home() {\n  const [isPlanCareOpen, setIsPlanCareOpen] = useState(false);\n  const [selectedIndustry, setSelectedIndustry] = useState<string>(\"Commercial Enterprise\");\n  const [estimateSummary, setEstimateSummary] = useState<string>(\"\");\n\n  const handleOpenPlanCare = (industry?: string) => {\n    if (industry) {\n      setSelectedIndustry(industry);\n    }\n    setIsPlanCareOpen(true);\n  };\n\n  return (\n    <main className=\"min-h-screen flex flex-col bg-[#faf8f5] text-[#191024] relative selection:bg-[#2e094d] selection:text-purple-100\">\n      \n      {/* 1. Header / Navigation */}\n      <Navbar\n        onOpenPlanCare={() => handleOpenPlanCare()}\n      />\n\n      {/* 2. Main Home Page Banner Section: Commercial Facility & Scale (Reference Image 1) */}\n      <div id=\"facility\">\n        <IndustrialHeroBanner onOpenQuote={(ind) => handleOpenPlanCare(ind || \"Commercial Enterprise\")} />\n      </div>\n\n      {/* 3. Dark Purple Ribbon Strip */}\n      <RibbonBanner />\n\n      {/* 4. Editorial Hospitality Showcase: \"Fresh linen. Fewer worries. Better business.\" */}\n      <HeroSection onOpenPlanCare={() => handleOpenPlanCare(\"Hotels & Resorts\")} />\n\n      {/* 5. Industries Grid: \"Made
-<truncated 1156 bytes>
+"use client";
+
+import { useState } from "react";
+import Navbar from "@/components/Navbar";
+import IndustrialHeroBanner from "@/components/IndustrialHeroBanner";
+import RibbonBanner from "@/components/RibbonBanner";
+import HeroSection from "@/components/HeroSection";
+import IndustriesSection from "@/components/IndustriesSection";
+import ApproachSection from "@/components/ApproachSection";
+import CommercialServicesSection from "@/components/CommercialServicesSection";
+import ClientTestimonials from "@/components/ClientTestimonials";
+import FAQSection from "@/components/FAQSection";
+import PlanCareCTA from "@/components/PlanCareCTA";
+import SiteFooter from "@/components/SiteFooter";
+import PlanCareModal from "@/components/PlanCareModal";
+
+export default function Home() {
+  const [isPlanCareOpen, setIsPlanCareOpen] = useState(false);
+  const [selectedIndustry, setSelectedIndustry] = useState("Commercial Enterprise");
+
+  const openPlanCare = (industry?: string) => {
+    if (industry) setSelectedIndustry(industry);
+    setIsPlanCareOpen(true);
+  };
+
+  return (
+    <main className="min-h-screen flex flex-col bg-[#faf8f5] text-[#191024]">
+      <Navbar onOpenPlanCare={openPlanCare} />
+      <div id="facility">
+        <IndustrialHeroBanner onOpenQuote={openPlanCare} />
+      </div>
+      <RibbonBanner />
+      <HeroSection onOpenPlanCare={() => openPlanCare("Hotels & Resorts")} />
+      <IndustriesSection onSelectIndustry={openPlanCare} />
+      <ApproachSection onOpenPlanCare={() => openPlanCare()} />
+      <CommercialServicesSection onOpenQuote={openPlanCare} />
+      <ClientTestimonials />
+      <FAQSection />
+      <PlanCareCTA onOpenPlanCare={() => openPlanCare()} />
+      <SiteFooter />
+      <PlanCareModal
+        isOpen={isPlanCareOpen}
+        onClose={() => setIsPlanCareOpen(false)}
+        preSelectedIndustry={selectedIndustry}
+      />
+    </main>
+  );
+}

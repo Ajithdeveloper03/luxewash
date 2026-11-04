@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import {
   X,
-  Calendar,
   Clock,
   MapPin,
   Phone,
@@ -37,13 +36,16 @@ export default function BookingModal({
   const [bookingRef, setBookingRef] = useState("");
 
   useEffect(() => {
-    if (preSelectedService) {
-      setService(preSelectedService);
-    }
-    // Default date to tomorrow
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    setDate(tomorrow.toISOString().split("T")[0]);
+    const timer = window.setTimeout(() => {
+      if (preSelectedService) {
+        setService(preSelectedService);
+      }
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      setDate(tomorrow.toISOString().split("T")[0]);
+    }, 0);
+
+    return () => window.clearTimeout(timer);
   }, [preSelectedService, isOpen]);
 
   if (!isOpen) return null;

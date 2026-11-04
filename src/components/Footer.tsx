@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { assetPath } from "@/lib/site";
 import Link from "next/link";
 import {
   Mail,
@@ -39,7 +40,7 @@ export default function Footer() {
             <div className="inline-block bg-white px-4 py-2 rounded-2xl shadow-lg border border-purple-200">
               <div className="relative h-12 w-48">
                 <Image
-                  src="/images/luxewash-logo.jpg"
+                  src={assetPath("/images/luxewash-logo.jpg")}
                   alt="LUXE WASH Premium Laundry Care"
                   fill
                   className="object-contain object-left"
