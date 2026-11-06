@@ -1,243 +1,160 @@
 "use client";
 
-import React, { useState } from "react";
-import Image from "next/image";
-import { assetPath } from "@/lib/site";
-import Link from "next/link";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Clock,
-  Send,
-  Sparkles,
-  CheckCircle,
-} from "lucide-react";
-import { FacebookIcon, InstagramIcon, LinkedinIcon, TwitterIcon } from "./SocialIcons";
+import React from "react";
+import { Sparkles, ArrowUp, ShieldCheck, Droplet, Leaf, Award } from "lucide-react";
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubscribe = (e: React.FormEvent) => {
+  const scrollToTop = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (email.trim()) {
-      setSubscribed(true);
-      setEmail("");
-    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const navLinks = [
+    { name: "Home", href: "#home" },
+    { name: "About", href: "#about" },
+    { name: "Services", href: "#services" },
+    { name: "Industries", href: "#industries" },
+    { name: "Contact", href: "#contact" },
+  ];
+
   return (
-    <footer id="contact" className="bg-[#0f0318] text-purple-200 pt-16 pb-8 border-t border-purple-900/40 relative">
+    <footer className="relative bg-[#04060a] border-t border-white/10 pt-16 pb-12 overflow-hidden text-slate-400 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Main Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-14 border-b border-purple-900/60">
-          
-          {/* Brand Column (Col span 4) */}
-          <div className="lg:col-span-4 space-y-5">
-            {/* Logo on white pill card so Reference 2 logo renders flawlessly */}
-            <div className="inline-block bg-white px-4 py-2 rounded-2xl shadow-lg border border-purple-200">
-              <div className="relative h-12 w-48">
-                <Image
-                  src={assetPath("/images/luxewash-logo.jpg")}
-                  alt="LUXE WASH Premium Laundry Care"
-                  fill
-                  className="object-contain object-left"
-                />
-              </div>
-            </div>
-
-            <p className="text-xs sm:text-sm text-purple-300/80 leading-relaxed max-w-sm">
-              LUXE WASH is the gold standard in premium garment care. From everyday organic wash & fold to heirloom gown restoration, our certified specialists ensure your clothes look flawless, feel soft, and last longer.
-            </p>
-
-            <div className="flex items-center gap-2 pt-2">
-              <a
-                href="#"
-                className="w-9 h-9 rounded-full bg-purple-950 border border-purple-800 flex items-center justify-center text-amber-300 hover:bg-amber-400 hover:text-purple-950 transition-all"
-                aria-label="Facebook"
-              >
-                <FacebookIcon className="w-4 h-4" />
-              </a>
-              <a
-                href="#"
-                className="w-9 h-9 rounded-full bg-purple-950 border border-purple-800 flex items-center justify-center text-amber-300 hover:bg-amber-400 hover:text-purple-950 transition-all"
-                aria-label="Instagram"
-              >
-                <InstagramIcon className="w-4 h-4" />
-              </a>
-              <a
-                href="#"
-                className="w-9 h-9 rounded-full bg-purple-950 border border-purple-800 flex items-center justify-center text-amber-300 hover:bg-amber-400 hover:text-purple-950 transition-all"
-                aria-label="LinkedIn"
-              >
-                <LinkedinIcon className="w-4 h-4" />
-              </a>
-              <a
-                href="#"
-                className="w-9 h-9 rounded-full bg-purple-950 border border-purple-800 flex items-center justify-center text-amber-300 hover:bg-amber-400 hover:text-purple-950 transition-all"
-                aria-label="Twitter"
-              >
-                <TwitterIcon className="w-4 h-4" />
-              </a>
-            </div>
-          </div>
-
-          {/* Quick Links Column (Col span 2) */}
+        {/* Top Footer Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-16 border-b border-white/10">
+          {/* Brand Info (2 cols) */}
           <div className="lg:col-span-2 space-y-4">
-            <h4 className="text-sm font-black uppercase tracking-wider text-amber-400">
-              Quick Links
-            </h4>
-            <ul className="space-y-2.5 text-xs text-purple-300">
-              <li>
-                <Link href="#hero" className="hover:text-amber-300 transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="#who-we-are" className="hover:text-amber-300 transition-colors">
-                  Who We Are
-                </Link>
-              </li>
-              <li>
-                <Link href="#how-it-works" className="hover:text-amber-300 transition-colors">
-                  How It Works
-                </Link>
-              </li>
-              <li>
-                <Link href="#services" className="hover:text-amber-300 transition-colors">
-                  Our Services
-                </Link>
-              </li>
-              <li>
-                <Link href="#testimonials" className="hover:text-amber-300 transition-colors">
-                  Client Reviews
-                </Link>
-              </li>
-              <li>
-                <Link href="#faq" className="hover:text-amber-300 transition-colors">
-                  FAQ & Policies
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Services Column (Col span 3) */}
-          <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-sm font-black uppercase tracking-wider text-amber-400">
-              Our Services
-            </h4>
-            <ul className="space-y-2.5 text-xs text-purple-300">
-              <li>
-                <Link href="#services" className="hover:text-amber-300 transition-colors">
-                  Artisanal Wash & Fold
-                </Link>
-              </li>
-              <li>
-                <Link href="#services" className="hover:text-amber-300 transition-colors">
-                  Executive Dry Cleaning
-                </Link>
-              </li>
-              <li>
-                <Link href="#services" className="hover:text-amber-300 transition-colors">
-                  Italian Steam Pressing
-                </Link>
-              </li>
-              <li>
-                <Link href="#services" className="hover:text-amber-300 transition-colors">
-                  Curtains & Bedding Sanitization
-                </Link>
-              </li>
-              <li>
-                <Link href="#services" className="hover:text-amber-300 transition-colors">
-                  Wedding Gown Preservation
-                </Link>
-              </li>
-              <li>
-                <Link href="#services" className="hover:text-amber-300 transition-colors">
-                  Leather, Suede & Shoe Spa
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact & Newsletter Column (Col span 3) */}
-          <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-sm font-black uppercase tracking-wider text-amber-400">
-              Contact Concierge
-            </h4>
-
-            <div className="space-y-3 text-xs text-purple-300">
-              <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
-                <span>450 Prestige Boulevard, Luxury Suite 100, City Center</span>
+            <a href="#home" className="flex items-center gap-3 group">
+              <div className="size-9 rounded-full border border-cyan-500/40 bg-cyan-950/40 p-1 flex items-center justify-center overflow-hidden shadow-[0_0_12px_rgba(6,182,212,0.3)]">
+                <div className="size-5 rounded-full border border-dashed border-cyan-400/80 animate-spin-drum-fast flex items-center justify-center">
+                  <span className="size-1.5 rounded-full bg-cyan-400" />
+                </div>
               </div>
-              <div className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-amber-400 flex-shrink-0" />
-                <a href="tel:+18005893927" className="hover:text-amber-300 font-bold">
-                  +1 (800) 589-3927 (24/7 Hotline)
+              <span className="font-display text-xl tracking-[0.2em] font-bold text-white uppercase group-hover:text-cyan-300 transition-colors">
+                LUXE<span className="text-cyan-400 font-extrabold">WASH</span>
+              </span>
+            </a>
+            <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
+              Molecular garment restoration and high-volume commercial linen excellence. Closed-loop cold-water aqueous ozone engineering.
+            </p>
+            <div className="flex items-center gap-3 text-xs font-mono text-cyan-400 pt-1">
+              <span className="flex items-center gap-1">
+                <ShieldCheck className="size-3.5" />
+                <span>ISO 9001</span>
+              </span>
+              <span>•</span>
+              <span className="flex items-center gap-1">
+                <Leaf className="size-3.5 text-emerald-400" />
+                <span className="text-emerald-400">100% Eco-Ozone</span>
+              </span>
+              <span>•</span>
+              <span className="flex items-center gap-1">
+                <Award className="size-3.5 text-amber-400" />
+                <span className="text-amber-400">EN 14065</span>
+              </span>
+            </div>
+          </div>
+
+          {/* Quick Menus (Home, About, Services, Industries, Contact) */}
+          <div>
+            <h4 className="font-mono text-xs uppercase tracking-widest text-white font-bold mb-4">
+              Navigation
+            </h4>
+            <ul className="space-y-2.5 font-mono text-xs">
+              {navLinks.map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    className="hover:text-cyan-400 transition-colors uppercase tracking-wider block"
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Services Quick Links */}
+          <div>
+            <h4 className="font-mono text-xs uppercase tracking-widest text-white font-bold mb-4">
+              Specialized Care
+            </h4>
+            <ul className="space-y-2.5 text-xs">
+              <li>
+                <a href="#services" className="hover:text-cyan-400 transition-colors">
+                  Wardrobe Elite Wash & Fold
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="hover:text-cyan-400 transition-colors">
+                  Couture Silk & Cashmere Atelier
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="hover:text-cyan-400 transition-colors">
+                  Hotel & Resort Bulk Linens
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="hover:text-cyan-400 transition-colors">
+                  Express VIP 4-Hour Turnaround
+                </a>
+              </li>
+              <li>
+                <a href="#trajectory" className="hover:text-cyan-400 transition-colors">
+                  5-Stage Ozone Hydro-Cycle
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Commercial Facility Hours & Hotline */}
+          <div>
+            <h4 className="font-mono text-xs uppercase tracking-widest text-white font-bold mb-4">
+              Operations & Concierge
+            </h4>
+            <div className="space-y-3 font-mono text-xs text-slate-300">
+              <div>
+                <span className="text-slate-500 block text-[10px] uppercase">Central Facility</span>
+                <span className="text-white">Continuous 24/7 Operations</span>
+              </div>
+              <div>
+                <span className="text-slate-500 block text-[10px] uppercase">Courier Dispatches</span>
+                <span className="text-white">Daily 07:00 – 22:00</span>
+              </div>
+              <div>
+                <span className="text-slate-500 block text-[10px] uppercase">Emergency VIP Line</span>
+                <a href="tel:+18005893927" className="text-cyan-400 font-bold hover:underline">
+                  +1 (800) 589-3927
                 </a>
               </div>
-              <div className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-amber-400 flex-shrink-0" />
-                <span>concierge@luxewash.com</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <Clock className="w-4 h-4 text-amber-400 flex-shrink-0" />
-                <span>Mon – Sat: 7:30 AM – 9:00 PM</span>
-              </div>
             </div>
-
-            {/* Newsletter input */}
-            <div className="pt-2">
-              <div className="text-[11px] font-bold text-white mb-2">
-                Subscribe for Laundry Tips & Promo Codes:
-              </div>
-              {subscribed ? (
-                <div className="text-xs text-amber-300 flex items-center gap-1.5 p-2 rounded-xl bg-purple-900/60 border border-purple-700">
-                  <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Subscribed! Check your inbox for $10 voucher.</span>
-                </div>
-              ) : (
-                <form onSubmit={handleSubscribe} className="flex items-center gap-1.5">
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Your email address..."
-                    className="w-full px-3 py-2 rounded-xl bg-[#1b062b] border border-purple-800 text-xs text-white placeholder-purple-400 focus:outline-none focus:border-amber-400"
-                  />
-                  <button
-                    type="submit"
-                    className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-400 text-purple-950 hover:from-amber-300 hover:to-amber-500 font-bold transition-colors flex-shrink-0"
-                    aria-label="Subscribe"
-                  >
-                    <Send className="w-3.5 h-3.5" />
-                  </button>
-                </form>
-              )}
-            </div>
-
           </div>
-
         </div>
 
-        {/* Bottom Copyright */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-purple-400">
+        {/* Bottom Bar */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-slate-500">
           <div>
-            © 2026 <strong>LUXE WASH</strong>. All Rights Reserved. Master Fabric & Couture Care.
+            © {new Date().getFullYear()} LUXEWASH Inc. All rights reserved. Molecular Garment Architecture.
           </div>
-          <div className="flex items-center gap-4">
-            <a href="#" className="hover:text-amber-300">Privacy Policy</a>
-            <span>•</span>
-            <a href="#" className="hover:text-amber-300">Terms of Service</a>
-            <span>•</span>
-            <a href="#" className="hover:text-amber-300">Re-Wash Guarantee</a>
+
+          <div className="flex items-center gap-6">
+            <a href="#about" className="hover:text-slate-300 transition-colors">
+              Purity Policy
+            </a>
+            <a href="#services" className="hover:text-slate-300 transition-colors">
+              Terms of Care
+            </a>
+            <a
+              href="#home"
+              onClick={scrollToTop}
+              className="flex items-center gap-1.5 text-cyan-400 hover:text-cyan-300 transition-colors"
+            >
+              <span>Back to Top</span>
+              <ArrowUp className="size-3.5" />
+            </a>
           </div>
         </div>
-
       </div>
     </footer>
   );

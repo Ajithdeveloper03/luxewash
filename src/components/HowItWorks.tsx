@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { assetPath } from "@/lib/site";
 import { CheckCircle2, CalendarDays, Shirt } from "lucide-react";
 
 interface HowItWorksProps {
@@ -63,7 +62,7 @@ export default function HowItWorks({ onOpenBooking }: HowItWorksProps) {
               {/* Photo with rounded corners and soft luxury shadow */}
               <div className="relative h-[480px] sm:h-[580px] rounded-3xl overflow-hidden shadow-xl border border-slate-100 group">
                 <Image
-                  src={assetPath("/images/how-it-works.jpg")}
+                  src="/images/how-it-works.jpg"
                   alt="Friendly laundry intake specialist holding a pen with packaged garments"
                   fill
                   className="object-cover object-center transition-transform duration-700 group-hover:scale-105"

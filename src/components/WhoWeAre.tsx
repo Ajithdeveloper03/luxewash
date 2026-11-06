@@ -2,7 +2,6 @@
 
 import React from "react";
 import Image from "next/image";
-import { assetPath } from "@/lib/site";
 import { Check } from "lucide-react";
 
 interface WhoWeAreProps {
@@ -24,7 +23,7 @@ export default function WhoWeAre({ onOpenBooking }: WhoWeAreProps) {
               {/* Main Big Image: Woman Smiling with Fresh Clean Laundry at Dryer Drum */}
               <div className="relative h-[380px] sm:h-[460px] rounded-3xl overflow-hidden shadow-xl border border-slate-100">
                 <Image
-                  src={assetPath("/images/who-we-are-main.jpg")}
+                  src="/images/who-we-are-main.jpg"
                   alt="Smiling woman taking fresh clean laundry from washer"
                   fill
                   className="object-cover object-center"
@@ -35,7 +34,7 @@ export default function WhoWeAre({ onOpenBooking }: WhoWeAreProps) {
               {/* Inset Overlapping Image: Tipped Laundry Basket (Exact Reference Layout) */}
               <div className="absolute -bottom-6 right-2 sm:-bottom-8 sm:right-6 w-48 sm:w-64 h-36 sm:h-44 rounded-2xl overflow-hidden border-[6px] border-white shadow-2xl z-20 bg-white">
                 <Image
-                  src={assetPath("/images/who-we-are-basket.jpg")}
+                  src="/images/who-we-are-basket.jpg"
                   alt="Laundry basket with freshly folded colorful clothes"
                   fill
                   className="object-cover object-center"

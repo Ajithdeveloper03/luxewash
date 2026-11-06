@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { ArrowUpRight, Bed, Stethoscope, UtensilsCrossed, Shirt, ShieldCheck, Clock, CheckCircle2 } from "lucide-react";
+import React from "react";
+import { ArrowUpRight, Bed, Stethoscope, UtensilsCrossed, Shirt, ShieldCheck, CheckCircle2 } from "lucide-react";
 
 interface CommercialServicesSectionProps {
   onOpenQuote: (serviceName?: string) => void;
@@ -66,8 +66,6 @@ export default function CommercialServicesSection({ onOpenQuote }: CommercialSer
       turnaround: "Scheduled Weekly / Bi-Weekly",
     },
   ];
-  const [activeServiceId, setActiveServiceId] = useState(services[0].id);
-  const activeService = services.find((service) => service.id === activeServiceId) ?? services[0];
 
   return (
     <section id="services" className="w-full bg-[#f6f2ec] py-12 sm:py-16 border-b border-[#ece6dc] relative overflow-hidden">
@@ -101,61 +99,58 @@ export default function CommercialServicesSection({ onOpenQuote }: CommercialSer
 
         </div>
 
-        {/* Tabbed service selector: stacked on small screens, two columns on larger screens. */}
-        <div className="mb-12 grid grid-cols-1 items-stretch gap-5 md:grid-cols-[minmax(240px,0.32fr)_minmax(0,0.68fr)] md:gap-8">
-          <div className="flex flex-col gap-3">
-            {services.map((srv, index) => (
-              <button
-                key={srv.id}
-                type="button"
-                onClick={() => setActiveServiceId(srv.id)}
-                className={`flex min-w-0 flex-1 items-center gap-3 rounded-xl border p-4 text-left transition-all md:w-full ${
-                  activeServiceId === srv.id
-                    ? "border-[#6825a3] bg-[#240a3e] text-white shadow-lg"
-                    : "border-purple-200/80 bg-white text-[#2c1d3c] hover:border-[#a855f7]"
-                }`}
-              >
-                <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${activeServiceId === srv.id ? "bg-white/15" : "bg-[#23093b]"}`}>
-                  {React.cloneElement(srv.icon, { className: "h-5 w-5 text-amber-300" })}
-                </span>
-                <span>
-                  <span className={`block text-[10px] font-semibold uppercase tracking-[0.16em] ${activeServiceId === srv.id ? "text-purple-200" : "text-[#6825a3]"}`}>
-                    STEP 0{index + 1}
+        {/* 4 Core Commercial Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-7 mb-12">
+          {services.map((srv) => (
+            <div
+              key={srv.id}
+              onClick={() => onOpenQuote(srv.title)}
+              className="group bg-white rounded-[24px] p-7 sm:p-8 border border-purple-200/80 shadow-[0_10px_30px_rgba(45,12,78,0.06)] hover:border-[#7e22ce] hover:shadow-[0_20px_50px_rgba(126,34,206,0.22)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between cursor-pointer"
+            >
+              <div>
+                {/* Top Icon + Category */}
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-[#23093b] border border-purple-900/50 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+                    {srv.icon}
+                  </div>
+                  <span className="text-[9.5px] font-sans font-semibold tracking-[0.2em] uppercase text-[#6825a3] bg-purple-50 px-2.5 py-1 rounded-full border border-purple-200/60">
+                    {srv.category}
                   </span>
-                  <span className="mt-1 block text-sm font-semibold leading-tight">{srv.title}</span>
-                </span>
-              </button>
-            ))}
-          </div>
-
-          <article className="flex h-full min-h-[360px] flex-col rounded-2xl border border-purple-200/80 bg-white p-6 shadow-[0_10px_30px_rgba(45,12,78,0.08)] sm:p-8">
-            <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#23093b] shadow-md">
-                {activeService.icon}
-              </div>
-              <span className="rounded-full border border-purple-200/60 bg-purple-50 px-3 py-1 text-[9.5px] font-semibold uppercase tracking-[0.2em] text-[#6825a3]">
-                {activeService.category}
-              </span>
-            </div>
-            <h3 className="mb-3 font-serif text-[28px] font-semibold tracking-tight text-[#1a0c2e] sm:text-[34px]">
-              {activeService.title}
-            </h3>
-            <p className="mb-6 max-w-2xl text-[14px] leading-[1.7] text-[#554a61]">{activeService.description}</p>
-            <div className="grid gap-3 border-t border-[#ece6dc] pt-5 sm:grid-cols-3">
-              {activeService.features.map((feature) => (
-                <div key={feature} className="flex items-start gap-2 text-xs leading-relaxed text-[#4a3f57]">
-                  <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#6825a3]" />
-                  <span>{feature}</span>
                 </div>
-              ))}
+
+                {/* Service Title */}
+                <h3 className="font-serif text-[22px] sm:text-[23px] font-semibold text-[#1a0c2e] group-hover:text-[#6d228f] tracking-tight mb-3 transition-colors">
+                  {srv.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-[13px] sm:text-[13.5px] leading-[1.65] text-[#554a61] font-normal mb-6">
+                  {srv.description}
+                </p>
+
+                {/* Bullet Points */}
+                <div className="space-y-2 pt-4 border-t border-[#ece6dc] mb-6">
+                  {srv.features.map((feat, i) => (
+                    <div key={i} className="flex items-start gap-2 text-xs text-[#4a3f57]">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#6825a3] flex-shrink-0 mt-0.5" />
+                      <span>{feat}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom CTA with Turnaround SLA */}
+              <div className="pt-4 border-t border-[#ece6dc] flex items-center justify-between">
+                <span className="text-[11px] font-semibold text-[#6825a3] uppercase tracking-wider">
+                  {srv.turnaround}
+                </span>
+                <div className="w-7 h-7 rounded-full bg-purple-100 flex items-center justify-center text-[#240a3e] group-hover:bg-[#240a3e] group-hover:text-white transition-all shadow-xs">
+                  <ArrowUpRight className="w-4 h-4" />
+                </div>
+              </div>
+
             </div>
-            <div className="mt-auto flex flex-wrap items-center justify-between gap-4 border-t border-[#ece6dc] pt-5">
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-[#6825a3]">{activeService.turnaround}</span>
-              <button type="button" onClick={() => onOpenQuote(activeService.title)} className="inline-flex items-center gap-2 rounded bg-[#240a3e] px-5 py-3 text-xs font-semibold uppercase tracking-wider text-white transition hover:bg-[#6825a3]">
-                Discuss this service <ArrowUpRight className="h-4 w-4" />
-              </button>
-            </div>
-          </article>
+          ))}
         </div>
 
         {/* Value Proposition Strip: In-House vs LuxeWash Managed */}

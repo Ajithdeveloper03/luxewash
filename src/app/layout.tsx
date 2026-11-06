@@ -4,22 +4,25 @@ import "./globals.css";
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  themeColor: "#07090e",
 };
 
 export const metadata: Metadata = {
-  title: "LuxeWash | Professional Linen Care & Commercial Laundry Solutions",
+  title: "LUXEWASH — Precision Laundry & Molecular Garment Engineering",
   description:
-    "Commercial laundry excellence for hotels, restaurants, spas, and healthcare. Fresh linen, fewer worries, better business with bespoke care protocols.",
+    "Next-generation luxury laundry & commercial linen care. Zero-phosphate ozone infusion, cold-water hydro-inversion, and 24-hour on-demand door-to-door delivery.",
   keywords: [
+    "Luxewash",
+    "luxury laundry",
     "commercial laundry",
-    "linen service",
-    "hospitality linen",
+    "ozone linen care",
     "hotel laundry service",
-    "restaurant linen",
-    "medical laundry",
-    "LuxeWash",
-    "Lesako laundry",
+    "couture dry cleaning",
+    "delicate garment washing",
   ],
+  icons: {
+    icon: "/images/logo.png",
+  },
 };
 
 export default function RootLayout({
@@ -29,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className="min-h-screen bg-[#faf8f5] text-[#191024] antialiased selection:bg-[#2e094d] selection:text-white">
+      <body className="min-h-screen bg-[#07090e] text-[#f1f5f9] antialiased selection:bg-[#0284c7] selection:text-white">
         {children}
       </body>
     </html>

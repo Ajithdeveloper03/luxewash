@@ -2,7 +2,6 @@
 
 import React from "react";
 import Image from "next/image";
-import { assetPath } from "@/lib/site";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 interface HeroBannerProps {
@@ -11,8 +10,7 @@ interface HeroBannerProps {
 }
 
 export default function HeroBanner({
-  onOpenBooking,
-  onOpenCalculator,
+    onOpenCalculator,
 }: HeroBannerProps) {
   return (
     <section
@@ -155,7 +153,7 @@ export default function HeroBanner({
             }}
           >
             <Image
-              src={assetPath("/images/hero-valet.jpg")}
+              src="/images/hero-valet.jpg"
               alt="Professional laundry specialist with freshly ironed garments"
               fill
               className="object-cover object-center"
@@ -185,3 +183,4 @@ export default function HeroBanner({
     </section>
   );
 }
+

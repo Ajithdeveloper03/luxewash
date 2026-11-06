@@ -2,7 +2,6 @@
 
 import React from "react";
 import Image from "next/image";
-import { assetPath } from "@/lib/site";
 import { ArrowUpRight, ShieldCheck, Clock, Building2 } from "lucide-react";
 
 interface IndustrialHeroBannerProps {
@@ -23,7 +22,7 @@ export default function IndustrialHeroBanner({ onOpenQuote }: IndustrialHeroBann
       {/* 1. FULL BACKGROUND IMAGE with REDUCED OVERLAY OPACITY */}
       <div className="absolute inset-0 z-0">
         <Image
-          src={assetPath("/images/industrial-facility.jpg")}
+          src="/images/industrial-facility.jpg"
           alt="Commercial laundry facility with continuous batch washers and linen carts"
           fill
           priority

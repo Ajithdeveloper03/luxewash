@@ -1,20 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
 import {
-  Sparkles,
-  Shirt,
-  Scissors,
-  Bed,
-  Heart,
-  Crown,
+  Sparkles,  Crown,
   Clock,
   Check,
-  ArrowRight,
-  ShieldCheck,
-  Zap,
-} from "lucide-react";
+  ArrowRight,} from "lucide-react";
 
 interface OurServicesProps {
   onSelectService: (serviceName: string) => void;
@@ -307,3 +298,4 @@ export default function OurServices({
     </section>
   );
 }
+

@@ -28,54 +28,52 @@ export default function ClientTestimonials() {
   ];
 
   return (
-    <section id="testimonials" className="w-full overflow-hidden border-b border-[#3b1760] bg-[#240a3e] py-10 sm:py-14">
+    <section className="w-full bg-[#faf8f5] py-10 sm:py-14 border-b border-[#ece6dc]">
       <div className="max-w-[1360px] mx-auto px-5 sm:px-8">
         
         {/* Header */}
         <div className="max-w-2xl mb-6 sm:mb-8">
           <div className="flex items-center gap-2 mb-3">
-            <span className="h-[1.5px] w-5 bg-[#d7a7ff]" />
-            <span className="text-[11px] font-sans font-semibold tracking-[0.24em] uppercase text-[#d7a7ff]">
+            <span className="w-5 h-[1.5px] bg-[#6825a3]" />
+            <span className="text-[11px] font-sans font-semibold tracking-[0.24em] uppercase text-[#6825a3]">
               TESTED IN HOSPITALITY
             </span>
           </div>
 
-          <h2 className="font-serif text-[34px] sm:text-[42px] leading-[1.1] text-white font-medium tracking-tight">
+          <h2 className="font-serif text-[34px] sm:text-[42px] leading-[1.1] text-[#191024] font-medium tracking-tight">
             Trusted by the city&apos;s leading establishments
           </h2>
-          <p className="mt-3 text-sm text-purple-200/70">Real results from teams that cannot compromise on presentation.</p>
         </div>
 
-        <div className="testimonial-marquee">
-          <div className="testimonial-track">
-            {[...testimonials, ...testimonials].map((t, idx) => (
+        {/* 3 Editorial Testimonial Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 xl:gap-10">
+          {testimonials.map((t, idx) => (
             <div
-              key={`${t.author}-${idx}`}
-              className="flex h-[255px] w-[min(82vw,390px)] shrink-0 flex-col justify-between rounded-sm border border-white/15 bg-white/[0.08] p-6 shadow-lg backdrop-blur-sm sm:h-[270px] sm:p-7"
+              key={idx}
+              className="bg-[#f6f2ec]/60 border border-[#e8e2d8] p-8 sm:p-9 flex flex-col justify-between"
             >
               <div>
-                <span className="font-serif text-4xl leading-none text-[#d7a7ff] select-none block mb-2">
+                <span className="font-serif text-4xl text-[#6d228f] leading-none select-none block mb-4">
                   “
                 </span>
-                <p className="font-serif text-[16px] leading-[1.45] text-purple-50 italic font-normal">
+                <p className="font-serif text-[17px] sm:text-[18px] leading-[1.65] text-[#2c1d3c] italic font-normal mb-8">
                   {t.quote}
                 </p>
               </div>
 
-              <div className="border-t border-white/15 pt-3">
-                <div className="font-sans text-[13px] font-semibold text-white">
+              <div className="pt-6 border-t border-[#e2dcd2]">
+                <div className="font-sans text-[14px] font-semibold text-[#1e0a33]">
                   {t.author}
                 </div>
-                <div className="mt-0.5 text-[11px] font-medium text-[#d7a7ff]">
+                <div className="text-[12px] text-[#6d228f] font-medium mt-0.5">
                   {t.role}
                 </div>
-                <div className="text-[11px] text-purple-200/60">
+                <div className="text-[12px] text-[#71657c]">
                   {t.property}
                 </div>
               </div>
             </div>
-            ))}
-          </div>
+          ))}
         </div>
 
       </div>

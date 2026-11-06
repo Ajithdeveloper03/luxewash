@@ -1,0 +1,95 @@
+# ----------------------------------------------------------------------
+# Luxewash - Hostinger Apache Configuration for Subfolder "/laundry"
+# Place this .htaccess inside: public_html/laundry/
+# ----------------------------------------------------------------------
+
+# 1. Enable Rewrite Engine
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /laundry/
+
+  # Ensure trailing slash on directory requests (/laundry -> /laundry/)
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_URI} !(/$)
+  RewriteRule ^(.*)$ /laundry/$1/ [R=301,L]
+
+  # If requested path is an existing file or directory, serve it directly
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Fallback to index.html for client-side routing
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# 2. Custom 404 Error Handling
+ErrorDocument 404 /laundry/index.html
+
+# 3. Performance: Browser Caching & Headers
+  # Especially important for the 240 canvas frame images and next.js chunks
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+
+  # Canvas Frames & Static Images (1 Year Cache)
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+
+  # Web Fonts (1 Year Cache)
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/ttf "access plus 1 year"
+  ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
+
+  # CSS and JavaScript Static Chunks (1 Month Cache)
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType text/javascript "access plus 1 month"
+
+  # HTML Pages (Always revalidate for instant updates)
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Cache static assets immutably
+  <FilesMatch "\.(jpg|jpeg|png|webp|svg|ico|woff2|woff|ttf|css|js)$">
+    Header set Cache-Control "max-age=31536000, public, immutable"
+  </FilesMatch>
+
+  # Do not cache HTML so visitors always get newest build
+  <FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires 0
+  </FilesMatch>
+
+  # Security Headers
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# 4. Gzip & Deflate Compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+  AddOutputFilterByType DEFLATE text/javascript application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/json application/xml image/svg+xml
+</IfModule>
+
+# 5. Correct MIME Types
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType font/woff2 .woff2
+  AddType font/woff .woff
+  AddType application/json .json
+  AddType image/svg+xml .svg
+</IfModule>
+
+# 6. Disable Directory Browsing
+Options -Indexes
+

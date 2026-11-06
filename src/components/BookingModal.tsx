@@ -1,17 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   X,
-  Clock,
-  MapPin,
-  Phone,
-  User,
-  Sparkles,
   CheckCircle2,
   ShieldCheck,
   Truck,
-  Shirt,
 } from "lucide-react";
 
 interface BookingModalProps {
@@ -23,30 +17,21 @@ interface BookingModalProps {
 export default function BookingModal({
   isOpen,
   onClose,
-  preSelectedService,
+  preSelectedService = "Artisanal Wash & Fold",
 }: BookingModalProps) {
-  const [service, setService] = useState(preSelectedService || "Artisanal Wash & Fold");
+  const [service, setService] = useState(preSelectedService);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(() => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return tomorrow.toISOString().split("T")[0];
+  });
   const [timeSlot, setTimeSlot] = useState("09:00 AM - 11:00 AM");
   const [notes, setNotes] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [bookingRef, setBookingRef] = useState("");
-
-  useEffect(() => {
-    const timer = window.setTimeout(() => {
-      if (preSelectedService) {
-        setService(preSelectedService);
-      }
-      const tomorrow = new Date();
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      setDate(tomorrow.toISOString().split("T")[0]);
-    }, 0);
-
-    return () => window.clearTimeout(timer);
-  }, [preSelectedService, isOpen]);
 
   if (!isOpen) return null;
 

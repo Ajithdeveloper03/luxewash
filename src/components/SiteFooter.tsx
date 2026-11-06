@@ -1,10 +1,9 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import { Mail, Phone, MapPin } from "lucide-react";
-
 import Image from "next/image";
-import { assetPath } from "@/lib/site";
 
 export default function SiteFooter() {
   return (
@@ -20,7 +19,7 @@ export default function SiteFooter() {
               <Link href="/" className="inline-block mb-3">
                 <div className="relative h-11 w-44">
                   <Image
-                    src={assetPath("/images/logo-2.png")}
+                    src="/images/logo-2.png"
                     alt="Luxewash"
                     fill
                     className="object-contain object-left"

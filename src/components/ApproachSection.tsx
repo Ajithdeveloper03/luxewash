@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { assetPath } from "@/lib/site";
 import { Plus, Minus, ArrowUpRight } from "lucide-react";
 
 interface ApproachSectionProps {
@@ -74,7 +73,7 @@ export default function ApproachSection({ onOpenPlanCare }: ApproachSectionProps
             <div className="bg-[#ede8df]/60 border border-[#e2dcd2] p-5 sm:p-7 rounded-sm shadow-sm">
               <div className="relative aspect-square w-full overflow-hidden rounded-sm bg-[#e8e2d8]">
                 <Image
-                  src={assetPath("/images/folded-linens-study.jpg")}
+                  src="/images/folded-linens-study.jpg"
                   alt="A study in everyday care, stack of pristine crisp white folded luxury hotel linens"
                   fill
                   sizes="(max-width: 1024px) 100vw, 40vw"

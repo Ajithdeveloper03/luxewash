@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Plus, Minus, Search, Sparkles, HelpCircle, PhoneCall } from "lucide-react";
+import { Plus, Minus, Search, HelpCircle, PhoneCall } from "lucide-react";
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
