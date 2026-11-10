@@ -14,6 +14,7 @@ const padZero = (num: number, size = 3) => {
 
 export default function ReplicaFiberEngineering() {
   const sectionRef = useRef<HTMLElement>(null);
+  const pinWrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const frameRef = useRef<{ index: number }>({ index: 0 });
@@ -140,29 +141,31 @@ export default function ReplicaFiberEngineering() {
     };
   }, [constructFrameUrl, renderFrame]);
 
-  // GSAP ScrollTrigger Integration: Screen locked (pin: true) until all 104 frames finish playing
+  // GSAP ScrollTrigger Integration: Screen locked with inner pin until all 104 frames finish playing
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (!sectionRef.current) return;
 
+    let isMounted = true;
     let ctx: any;
 
     Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(
       ([{ gsap }, { ScrollTrigger }]) => {
-        if (!sectionRef.current) return;
+        if (!isMounted || !sectionRef.current) return;
         gsap.registerPlugin(ScrollTrigger);
 
         ctx = gsap.context(() => {
-          if (!sectionRef.current) return;
+          if (!sectionRef.current || !pinWrapperRef.current) return;
 
           ScrollTrigger.create({
             trigger: sectionRef.current,
+            pin: pinWrapperRef.current,
             start: "top top",
             end: "+=2600",
-            pin: true,
             scrub: 1.0, // Steady, buttery-smooth scrub rate
             anticipatePin: 1,
             onUpdate: (self) => {
+              if (!isMounted) return;
               const progress = self.progress;
               const targetIndex = Math.min(
                 TOTAL_FRAMES - 1,
@@ -176,7 +179,9 @@ export default function ReplicaFiberEngineering() {
                   cancelAnimationFrame(animFrameIdRef.current);
                 }
                 animFrameIdRef.current = requestAnimationFrame(() => {
-                  renderFrame(targetIndex);
+                  if (isMounted) {
+                    renderFrame(targetIndex);
+                  }
                 });
               }
             },
@@ -186,12 +191,15 @@ export default function ReplicaFiberEngineering() {
     );
 
     const handleResize = () => {
-      renderFrame(frameRef.current.index);
+      if (isMounted) {
+        renderFrame(frameRef.current.index);
+      }
     };
 
     window.addEventListener("resize", handleResize);
 
     return () => {
+      isMounted = false;
       window.removeEventListener("resize", handleResize);
       if (animFrameIdRef.current) {
         cancelAnimationFrame(animFrameIdRef.current);
@@ -204,13 +212,18 @@ export default function ReplicaFiberEngineering() {
     <section
       ref={sectionRef}
       id="fiber-restoration"
-      className="relative h-screen w-full max-w-full bg-[#060813] text-white z-20 box-border overflow-hidden"
+      className="relative w-full max-w-full bg-[#060813] text-white z-20 box-border overflow-hidden"
     >
-      {/* 1. Full Background Canvas: Smooth, steady 104-frame micro-weave animation */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full block object-cover z-0"
-      />
+      {/* Pinned inner wrapper preserves section hierarchy for React reconciler */}
+      <div
+        ref={pinWrapperRef}
+        className="relative w-full h-screen max-w-full overflow-hidden"
+      >
+        {/* 1. Full Background Canvas: Smooth, steady 104-frame micro-weave animation */}
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 w-full h-full block object-cover z-0"
+        />
 
       {/* 2. Soft Dark Vignette & Gradient Overlays: Preserves left side contrast while keeping right side open */}
       <div className="absolute inset-0 bg-gradient-to-r from-[#060813] via-[#060813]/85 sm:via-[#060813]/70 to-transparent z-[1] pointer-events-none" />
@@ -261,6 +274,7 @@ export default function ReplicaFiberEngineering() {
           {/* Right Column: Intentionally Empty — Pure cinematic view of the background fiber frames with ZERO text or labels */}
           <div className="lg:col-span-6 w-full hidden lg:block pointer-events-none" />
         </div>
+      </div>
       </div>
     </section>
   );

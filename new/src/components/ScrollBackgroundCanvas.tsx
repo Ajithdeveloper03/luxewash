@@ -186,10 +186,12 @@ export default function ScrollBackgroundCanvas() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
+    let isMounted = true;
     let triggerInstance: any = null;
 
     Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(
       ([{ gsap }, { ScrollTrigger }]) => {
+        if (!isMounted) return;
         gsap.registerPlugin(ScrollTrigger);
 
         triggerInstance = ScrollTrigger.create({
@@ -198,6 +200,7 @@ export default function ScrollBackgroundCanvas() {
           end: "bottom bottom",
           scrub: 1.0, // Buttery smooth, responsive scrub with natural momentum
           onUpdate: (self) => {
+            if (!isMounted) return;
             const progress = self.progress;
             const targetIndex = Math.min(
               TOTAL_FRAMES - 1,
@@ -212,7 +215,9 @@ export default function ScrollBackgroundCanvas() {
                 cancelAnimationFrame(animFrameIdRef.current);
               }
               animFrameIdRef.current = requestAnimationFrame(() => {
-                renderFrame(targetIndex);
+                if (isMounted) {
+                  renderFrame(targetIndex);
+                }
               });
             }
 
@@ -232,12 +237,15 @@ export default function ScrollBackgroundCanvas() {
     );
 
     const handleResize = () => {
-      renderFrame(frameRef.current.index);
+      if (isMounted) {
+        renderFrame(frameRef.current.index);
+      }
     };
 
     window.addEventListener("resize", handleResize);
 
     return () => {
+      isMounted = false;
       window.removeEventListener("resize", handleResize);
       if (animFrameIdRef.current) {
         cancelAnimationFrame(animFrameIdRef.current);

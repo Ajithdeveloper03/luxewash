@@ -11,10 +11,11 @@ export default function ReplicaIndustries() {
     if (typeof window === "undefined") return;
     if (!sectionRef.current) return;
 
+    let isMounted = true;
     let ctx: any;
     Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(
       ([{ gsap }, { ScrollTrigger }]) => {
-        if (!sectionRef.current) return;
+        if (!isMounted || !sectionRef.current) return;
         gsap.registerPlugin(ScrollTrigger);
 
         ctx = gsap.context(() => {
@@ -42,6 +43,7 @@ export default function ReplicaIndustries() {
     );
 
     return () => {
+      isMounted = false;
       if (ctx) ctx.revert();
     };
   }, []);

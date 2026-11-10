@@ -18,9 +18,10 @@ export default function ReplicaHero({ onOpenBooking }: ReplicaHeroProps) {
     if (typeof window === "undefined") return;
     if (!heroRef.current) return;
 
+    let isMounted = true;
     let ctx: any;
     Promise.all([import("gsap")]).then(([{ gsap }]) => {
-      if (!heroRef.current) return;
+      if (!isMounted || !heroRef.current) return;
       ctx = gsap.context(() => {
         if (windowRef.current) {
           gsap.fromTo(
@@ -33,6 +34,7 @@ export default function ReplicaHero({ onOpenBooking }: ReplicaHeroProps) {
     });
 
     return () => {
+      isMounted = false;
       if (ctx) ctx.revert();
     };
   }, []);
@@ -61,26 +63,26 @@ export default function ReplicaHero({ onOpenBooking }: ReplicaHeroProps) {
       className="relative min-h-[100vh] h-auto lg:h-screen lg:max-h-screen w-full max-w-full flex flex-col justify-between items-center py-4 sm:py-6 lg:py-8 px-4 sm:px-8 lg:px-16 z-10 overflow-hidden box-border"
     >
       {/* Top Header / Navigation Bar */}
-      <header className="relative w-full flex items-center justify-between z-30 py-2 sm:py-3">
-        {/* Left: Brand Logo (Significantly Bigger) */}
-        <a href="#home" className="relative flex items-center gap-2 group transition-transform hover:scale-[1.03]">
+      <header className="relative w-full flex items-center justify-between gap-3 sm:gap-4 z-30 py-2 sm:py-3">
+        {/* Left: Brand Logo */}
+        <a href="#home" className="relative flex items-center shrink-0 group transition-transform hover:scale-[1.03]">
           <Image
             src={getAssetPath("/luxewash-logo.png")}
             alt="Luxewash"
-            width={260}
-            height={75}
-            className="h-12 sm:h-14 md:h-16 lg:h-20 w-auto object-contain drop-shadow-[0_4px_16px_rgba(126,34,206,0.3)]"
+            width={220}
+            height={60}
+            className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto object-contain drop-shadow-[0_4px_16px_rgba(126,34,206,0.3)]"
             priority
           />
         </a>
 
-        {/* Center: Capsule Pill Navigation with Large Font (Shown on desktop lg: >= 1024px to prevent tablet cramping) */}
-        <nav className="hidden lg:flex items-center gap-1.5 bg-white/75 border border-purple-200/60 rounded-full px-3.5 py-2 backdrop-blur-[2px] shadow-md shadow-purple-950/5">
+        {/* Center: Capsule Pill Navigation (Shown on xl: >= 1280px to guarantee zero overlapping on any laptop or tablet) */}
+        <nav className="hidden xl:flex items-center gap-1.5 bg-white/80 border border-purple-200/70 rounded-full px-3.5 py-2 backdrop-blur-md shadow-md shadow-purple-950/5 shrink-0 whitespace-nowrap">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className={`px-3.5 py-1.5 lg:px-4 lg:py-2 rounded-full text-base font-bold tracking-wide transition-all ${
+              className={`px-3.5 py-1.5 xl:px-4 xl:py-2 rounded-full text-base font-bold tracking-wide whitespace-nowrap transition-all ${
                 link.active
                   ? "bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-amber-300 font-extrabold shadow-sm border border-amber-400/30"
                   : "text-slate-900 hover:text-purple-950 hover:bg-purple-100/60"
@@ -91,30 +93,31 @@ export default function ReplicaHero({ onOpenBooking }: ReplicaHeroProps) {
           ))}
         </nav>
 
-        {/* Right: Action Button */}
-        <div className="flex items-center gap-3">
+        {/* Right: Action Button & Hamburger Toggle */}
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <button
             onClick={handleBookingClick}
-            className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/90 hover:bg-white border-2 border-purple-300 text-purple-950 font-extrabold text-base tracking-wider transition-all backdrop-blur-[2px] shadow-sm hover:border-amber-400 hover:shadow-purple-200"
+            className="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-full bg-white/95 hover:bg-white border-2 border-purple-300 text-purple-950 font-extrabold text-base tracking-wide transition-all backdrop-blur-[2px] shadow-sm hover:border-amber-400 hover:shadow-purple-200 shrink-0 whitespace-nowrap"
           >
             <span className="text-amber-600">✦</span>
-            <span>Book Laundry Pickup</span>
+            <span className="hidden sm:inline">Book Laundry Pickup</span>
+            <span className="sm:hidden">Book Pickup</span>
           </button>
 
-          {/* Mobile & Tablet hamburger */}
+          {/* Mobile & Tablet Hamburger (Shown on all screens < 1280px) */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2.5 rounded-full bg-white/90 border border-purple-200 text-purple-950 shadow-sm"
+            className="xl:hidden p-2 sm:p-2.5 rounded-full bg-white/90 border border-purple-200 text-purple-950 shadow-sm shrink-0 hover:bg-white transition-colors"
             aria-label="Toggle menu"
           >
-            {mobileMenuOpen ? <X className="size-6" /> : <Menu className="size-6" />}
+            {mobileMenuOpen ? <X className="size-5 sm:size-6" /> : <Menu className="size-5 sm:size-6" />}
           </button>
         </div>
       </header>
 
-      {/* Mobile Drawer */}
+      {/* Mobile & Tablet Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-x-4 top-20 z-50 bg-white/95 border border-purple-200 rounded-3xl p-6 backdrop-blur-md space-y-4 shadow-2xl">
+        <div className="xl:hidden fixed inset-x-4 top-20 z-50 bg-white/95 border border-purple-200 rounded-3xl p-6 backdrop-blur-md space-y-4 shadow-2xl">
           <div className="flex flex-col gap-2">
             {navLinks.map((link) => (
               <a

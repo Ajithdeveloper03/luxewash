@@ -13,10 +13,11 @@ export default function ReplicaTestimonial() {
     if (typeof window === "undefined") return;
     if (!containerRef.current) return;
 
+    let isMounted = true;
     let ctx: any;
     Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(
       ([{ gsap }, { ScrollTrigger }]) => {
-        if (!containerRef.current) return;
+        if (!isMounted || !containerRef.current) return;
         gsap.registerPlugin(ScrollTrigger);
 
         ctx = gsap.context(() => {
@@ -61,6 +62,7 @@ export default function ReplicaTestimonial() {
     );
 
     return () => {
+      isMounted = false;
       if (ctx) ctx.revert();
     };
   }, []);

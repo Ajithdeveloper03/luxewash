@@ -32,7 +32,6 @@ export default function ReplicaFooter() {
           <a href="#about" className="text-slate-950 hover:text-purple-900 transition-colors">About</a>
           <a href="#services" className="text-slate-950 hover:text-purple-900 transition-colors">Services</a>
           <a href="#industries" className="text-slate-950 hover:text-purple-900 transition-colors">Industries</a>
-          <a href="#fiber-restoration" className="text-slate-950 hover:text-purple-900 transition-colors">Fiber Atelier</a>
           <a href="#contact" className="text-slate-950 hover:text-purple-900 transition-colors">Contact</a>
           <button
             onClick={scrollToTop}

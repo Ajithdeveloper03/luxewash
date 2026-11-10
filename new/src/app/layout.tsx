@@ -33,8 +33,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className="min-h-screen bg-transparent text-slate-900 antialiased selection:bg-purple-200 selection:text-purple-950">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <body
+        suppressHydrationWarning
+        className="min-h-screen bg-transparent text-slate-900 antialiased selection:bg-purple-200 selection:text-purple-950"
+      >
         {children}
       </body>
     </html>
