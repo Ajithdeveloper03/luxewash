@@ -7,6 +7,7 @@ import ReplicaFeatures from "@/components/ReplicaFeatures";
 import ReplicaIndustries from "@/components/ReplicaIndustries";
 import ReplicaExperience from "@/components/ReplicaExperience";
 import ReplicaTestimonial from "@/components/ReplicaTestimonial";
+import ReplicaFiberEngineering from "@/components/ReplicaFiberEngineering";
 import ReplicaContact from "@/components/ReplicaContact";
 import ReplicaFooter from "@/components/ReplicaFooter";
 import ScrollBackgroundCanvas from "@/components/ScrollBackgroundCanvas";
@@ -42,10 +43,13 @@ export default function Home() {
       {/* 6. Testimonial Section (Image 1 Replica): Portrait + Indigo Metrics Card */}
       <ReplicaTestimonial />
 
-      {/* 7. White-Glove Dispatch & Booking Section */}
+      {/* 7. New Dark Macro Fiber Weave Engineering Section (GSAP ScrollTrigger driven by 104 frames) */}
+      <ReplicaFiberEngineering />
+
+      {/* 8. White-Glove Dispatch & Booking Section (CTA) */}
       <ReplicaContact />
 
-      {/* 8. Minimal Footer */}
+      {/* 9. Minimal Footer */}
       <ReplicaFooter />
     </main>
   );
