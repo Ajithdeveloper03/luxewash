@@ -30,7 +30,7 @@ export default function ReplicaTestimonial() {
                 trigger: containerRef.current,
                 start: "top 75%",
                 end: "center center",
-                scrub: 2.5,
+                scrub: 1.0,
               },
             }
           );
@@ -46,7 +46,7 @@ export default function ReplicaTestimonial() {
                 trigger: containerRef.current,
                 start: "top 75%",
                 end: "center center",
-                scrub: 2.5,
+                scrub: 1.0,
               },
             }
           );

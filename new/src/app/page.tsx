@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import dynamic from "next/dynamic";
 import ReplicaHero from "@/components/ReplicaHero";
 import ReplicaAbout from "@/components/ReplicaAbout";
 import ReplicaFeatures from "@/components/ReplicaFeatures";
@@ -10,12 +9,7 @@ import ReplicaExperience from "@/components/ReplicaExperience";
 import ReplicaTestimonial from "@/components/ReplicaTestimonial";
 import ReplicaContact from "@/components/ReplicaContact";
 import ReplicaFooter from "@/components/ReplicaFooter";
-
-// Dynamically import the smooth ScrollTrigger background canvas
-const ScrollBackgroundCanvas = dynamic(
-  () => import("@/components/ScrollBackgroundCanvas"),
-  { ssr: false }
-);
+import ScrollBackgroundCanvas from "@/components/ScrollBackgroundCanvas";
 
 export default function Home() {
   const handleOpenBooking = () => {

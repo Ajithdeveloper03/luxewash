@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { getAssetPath } from "@/lib/basePath";
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import { getAssetPath, getRuntimeBasePath } from "@/lib/basePath";
 
-const TOTAL_FRAMES = 240;
+const TOTAL_FRAMES = 300;
 
 const padZero = (num: number, size = 4) => {
   let s = num + "";
@@ -11,36 +11,76 @@ const padZero = (num: number, size = 4) => {
   return s;
 };
 
-const getFramePath = (index: number) => {
-  const frameNum = Math.min(TOTAL_FRAMES, Math.max(1, index + 1));
-  return getAssetPath(`/frames/${padZero(frameNum, 4)}.jpg`);
-};
-
 export default function ScrollBackgroundCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const frameRef = useRef<{ index: number }>({ index: 0 });
+  const lastRenderedIndexRef = useRef<number>(-1);
+  const animFrameIdRef = useRef<number | null>(null);
   const [firstFrameLoaded, setFirstFrameLoaded] = useState(false);
+  const workingPrefixRef = useRef<string | null>(null);
 
-  const renderFrame = (idx: number) => {
+  // Helper to construct frame URL with verified prefix or dynamic fallback
+  const constructFrameUrl = useCallback((index: number, prefix?: string | null) => {
+    const frameNum = Math.min(TOTAL_FRAMES, Math.max(1, index + 1));
+    const filename = `${padZero(frameNum, 4)}.jpg`;
+
+    if (prefix !== undefined && prefix !== null) {
+      const clean = prefix.replace(/\/+$/, "");
+      return `${clean}/frames/${filename}`;
+    }
+
+    if (workingPrefixRef.current !== null) {
+      const clean = workingPrefixRef.current.replace(/\/+$/, "");
+      return `${clean}/frames/${filename}`;
+    }
+
+    return getAssetPath(`/frames/${filename}`);
+  }, []);
+
+  // High performance render with nearest-frame fallback (zero blank flash)
+  const renderFrame = useCallback((idx: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    // 1. Try target frame
     let img = imagesRef.current[idx];
+
+    // 2. If target frame isn't loaded yet, find the closest available loaded frame
+    if (!img || !img.complete || img.naturalWidth === 0) {
+      for (let offset = 1; offset < TOTAL_FRAMES; offset++) {
+        const prev = imagesRef.current[idx - offset];
+        if (prev && prev.complete && prev.naturalWidth > 0) {
+          img = prev;
+          break;
+        }
+        const next = imagesRef.current[idx + offset];
+        if (next && next.complete && next.naturalWidth > 0) {
+          img = next;
+          break;
+        }
+      }
+    }
+
+    // 3. Fallback to frame 0
     if (!img || !img.complete || img.naturalWidth === 0) {
       img = imagesRef.current[0];
     }
+
     if (!img || !img.complete || img.naturalWidth === 0) return;
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const cw = window.innerWidth;
     const ch = window.innerHeight;
 
-    if (canvas.width !== cw * dpr || canvas.height !== ch * dpr) {
-      canvas.width = cw * dpr;
-      canvas.height = ch * dpr;
+    const targetW = Math.floor(cw * dpr);
+    const targetH = Math.floor(ch * dpr);
+
+    if (canvas.width !== targetW || canvas.height !== targetH) {
+      canvas.width = targetW;
+      canvas.height = targetH;
     }
 
     ctx.save();
@@ -64,51 +104,90 @@ export default function ScrollBackgroundCanvas() {
       offsetX = (cw - renderW) / 2;
     }
 
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
     ctx.clearRect(0, 0, cw, ch);
     ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
 
     ctx.restore();
-  };
+    lastRenderedIndexRef.current = idx;
+  }, []);
 
-  // Preload frames
+  // Frame initialization and progressive loading
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const images: HTMLImageElement[] = [];
-
-    const firstImg = new Image();
-    firstImg.src = getFramePath(0);
-    firstImg.onload = () => {
-      setFirstFrameLoaded(true);
-      renderFrame(0);
-      window.dispatchEvent(
-        new CustomEvent("luxewash:frame", {
-          detail: { frameNumber: 1, frameIndex: 0, progress: 0 },
-        })
-      );
-    };
-    images.push(firstImg);
-
-    for (let i = 1; i < TOTAL_FRAMES; i++) {
-      const img = new Image();
-      img.src = getFramePath(i);
-      images.push(img);
-    }
+    const images: HTMLImageElement[] = new Array(TOTAL_FRAMES);
     imagesRef.current = images;
 
-    return () => {
-      images.forEach((img) => {
-        img.onload = null;
-        img.onerror = null;
-      });
-    };
-  }, []);
+    // Detect working prefix by probing candidates
+    const candidatePrefixes = [
+      getRuntimeBasePath(),
+      "/laundry",
+      "",
+      ".",
+    ];
 
-  // GSAP ScrollTrigger Integration with slower, heavier inertia scrub (6.0s)
+    let candidateIndex = 0;
+
+    const tryLoadFirstFrame = (prefix: string) => {
+      const probeImg = new Image();
+      probeImg.src = constructFrameUrl(0, prefix);
+
+      probeImg.onload = () => {
+        workingPrefixRef.current = prefix;
+        images[0] = probeImg;
+        setFirstFrameLoaded(true);
+        renderFrame(0);
+
+        window.dispatchEvent(
+          new CustomEvent("luxewash:frame", {
+            detail: { frameNumber: 1, frameIndex: 0, progress: 0 },
+          })
+        );
+
+        // Progressively preload the remaining 299 frames
+        for (let i = 1; i < TOTAL_FRAMES; i++) {
+          const img = new Image();
+          img.src = constructFrameUrl(i, prefix);
+          img.onload = () => {
+            // If the user is currently paused at this frame, sharpen it
+            if (frameRef.current.index === i) {
+              renderFrame(i);
+            }
+          };
+          images[i] = img;
+        }
+      };
+
+      probeImg.onerror = () => {
+        candidateIndex++;
+        if (candidateIndex < candidatePrefixes.length) {
+          tryLoadFirstFrame(candidatePrefixes[candidateIndex]);
+        }
+      };
+    };
+
+    tryLoadFirstFrame(candidatePrefixes[0]);
+
+    return () => {
+      if (imagesRef.current) {
+        imagesRef.current.forEach((img) => {
+          if (img) {
+            img.onload = null;
+            img.onerror = null;
+          }
+        });
+      }
+    };
+  }, [constructFrameUrl, renderFrame]);
+
+  // Silky Smooth GSAP ScrollTrigger Integration (steady 1.0s scrub)
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     let triggerInstance: any = null;
+
     Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(
       ([{ gsap }, { ScrollTrigger }]) => {
         gsap.registerPlugin(ScrollTrigger);
@@ -117,17 +196,27 @@ export default function ScrollBackgroundCanvas() {
           trigger: document.body,
           start: "top top",
           end: "bottom bottom",
-          scrub: 14.0,
+          scrub: 1.0, // Buttery smooth, responsive scrub with natural momentum
           onUpdate: (self) => {
             const progress = self.progress;
             const targetIndex = Math.min(
               TOTAL_FRAMES - 1,
               Math.max(0, Math.floor(progress * (TOTAL_FRAMES - 1)))
             );
-            frameRef.current.index = targetIndex;
-            renderFrame(targetIndex);
 
-            // Broadcast current frame number to all components
+            frameRef.current.index = targetIndex;
+
+            // Only redraw if frame index changed to prevent thrashing
+            if (targetIndex !== lastRenderedIndexRef.current) {
+              if (animFrameIdRef.current) {
+                cancelAnimationFrame(animFrameIdRef.current);
+              }
+              animFrameIdRef.current = requestAnimationFrame(() => {
+                renderFrame(targetIndex);
+              });
+            }
+
+            // Broadcast current frame number to syncing components
             window.dispatchEvent(
               new CustomEvent("luxewash:frame", {
                 detail: {
@@ -145,15 +234,19 @@ export default function ScrollBackgroundCanvas() {
     const handleResize = () => {
       renderFrame(frameRef.current.index);
     };
+
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      if (animFrameIdRef.current) {
+        cancelAnimationFrame(animFrameIdRef.current);
+      }
       if (triggerInstance) {
         triggerInstance.kill();
       }
     };
-  }, [firstFrameLoaded]);
+  }, [renderFrame]);
 
   return (
     <div

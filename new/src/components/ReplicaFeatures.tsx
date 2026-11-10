@@ -68,7 +68,7 @@ export default function ReplicaFeatures() {
                   trigger: containerRef.current,
                   start: "top 75%",
                   end: "center center",
-                  scrub: 2.5,
+                  scrub: 1.0,
                 },
               }
             );
