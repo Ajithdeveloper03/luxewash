@@ -43,11 +43,11 @@ export default function Home() {
       {/* 6. Testimonial Section (Image 1 Replica): Portrait + Indigo Metrics Card */}
       <ReplicaTestimonial />
 
-      {/* 7. New Dark Macro Fiber Weave Engineering Section (GSAP ScrollTrigger driven by 104 frames) */}
-      <ReplicaFiberEngineering />
-
-      {/* 8. White-Glove Dispatch & Booking Section (CTA) */}
+      {/* 7. White-Glove Dispatch & Booking Section (Form Section) */}
       <ReplicaContact />
+
+      {/* 8. Dark Macroscopic Fiber Restoration Section (Pinned ScrollTrigger Animation) */}
+      <ReplicaFiberEngineering />
 
       {/* 9. Minimal Footer */}
       <ReplicaFooter />

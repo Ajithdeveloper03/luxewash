@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import { getAssetPath } from "@/lib/basePath";
-import { Sparkles, Shield, Cpu, Activity } from "lucide-react";
+import { Sparkles, Shield } from "lucide-react";
 
 const TOTAL_FRAMES = 104;
 
@@ -19,9 +19,6 @@ export default function ReplicaFiberEngineering() {
   const frameRef = useRef<{ index: number }>({ index: 0 });
   const lastRenderedIndexRef = useRef<number>(-1);
   const animFrameIdRef = useRef<number | null>(null);
-
-  const [currentFrame, setCurrentFrame] = useState(1);
-  const [scrollProgress, setScrollProgress] = useState(0);
 
   // Construct frame asset URL with base path support
   const constructFrameUrl = useCallback((index: number) => {
@@ -62,8 +59,11 @@ export default function ReplicaFiberEngineering() {
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const rect = canvas.getBoundingClientRect();
-    const targetW = Math.floor(rect.width * dpr);
-    const targetH = Math.floor(rect.height * dpr);
+    const cw = rect.width || window.innerWidth;
+    const ch = rect.height || window.innerHeight;
+
+    const targetW = Math.floor(cw * dpr);
+    const targetH = Math.floor(ch * dpr);
 
     if (canvas.width !== targetW || canvas.height !== targetH) {
       canvas.width = targetW;
@@ -73,8 +73,6 @@ export default function ReplicaFiberEngineering() {
     ctx.save();
     ctx.scale(dpr, dpr);
 
-    const cw = rect.width;
-    const ch = rect.height;
     const imgRatio = img.naturalWidth / img.naturalHeight;
     const canvasRatio = cw / ch;
 
@@ -90,7 +88,8 @@ export default function ReplicaFiberEngineering() {
     } else {
       renderH = ch;
       renderW = ch * imgRatio;
-      offsetX = (cw - renderW) / 2;
+      // On desktop, bias focal center towards the right side to leave left open for content
+      offsetX = cw >= 1024 ? (cw - renderW) * 0.75 : (cw - renderW) / 2;
     }
 
     ctx.imageSmoothingEnabled = true;
@@ -116,7 +115,7 @@ export default function ReplicaFiberEngineering() {
       images[0] = firstImg;
       renderFrame(0);
 
-      // Preload remaining 103 frames progressively
+      // Preload remaining 103 frames progressively in background
       for (let i = 1; i < TOTAL_FRAMES; i++) {
         const img = new Image();
         img.src = constructFrameUrl(i);
@@ -141,7 +140,7 @@ export default function ReplicaFiberEngineering() {
     };
   }, [constructFrameUrl, renderFrame]);
 
-  // GSAP ScrollTrigger Integration for scroll-driven scrub
+  // GSAP ScrollTrigger Integration: Screen locked (pin: true) until all 104 frames finish playing
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (!sectionRef.current) return;
@@ -159,8 +158,10 @@ export default function ReplicaFiberEngineering() {
           ScrollTrigger.create({
             trigger: sectionRef.current,
             start: "top top",
-            end: "bottom bottom",
-            scrub: 0.8,
+            end: "+=2600",
+            pin: true,
+            scrub: 1.0, // Steady, buttery-smooth scrub rate
+            anticipatePin: 1,
             onUpdate: (self) => {
               const progress = self.progress;
               const targetIndex = Math.min(
@@ -169,8 +170,6 @@ export default function ReplicaFiberEngineering() {
               );
 
               frameRef.current.index = targetIndex;
-              setScrollProgress(Math.round(progress * 100));
-              setCurrentFrame(targetIndex + 1);
 
               if (targetIndex !== lastRenderedIndexRef.current) {
                 if (animFrameIdRef.current) {
@@ -205,20 +204,25 @@ export default function ReplicaFiberEngineering() {
     <section
       ref={sectionRef}
       id="fiber-restoration"
-      className="relative min-h-[180vh] sm:min-h-[220vh] w-full max-w-full bg-[#060813] text-white z-20 box-border overflow-x-hidden"
+      className="relative h-screen w-full max-w-full bg-[#060813] text-white z-20 box-border overflow-hidden"
     >
-      {/* Sticky Fullscreen Presentation Viewport */}
-      <div className="sticky top-0 h-screen w-full flex flex-col justify-center items-center py-6 sm:py-8 lg:py-10 px-4 sm:px-8 lg:px-16 overflow-hidden">
-        {/* Subtle Ambient Background Gradients */}
-        <div className="absolute top-1/4 -left-32 size-96 bg-purple-900/20 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-1/4 -right-32 size-96 bg-indigo-900/20 rounded-full blur-3xl pointer-events-none" />
+      {/* 1. Full Background Canvas: Smooth, steady 104-frame micro-weave animation */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full block object-cover z-0"
+      />
 
-        {/* 2-Column Responsive Layout: Left Content + Right Interactive Video Canvas */}
-        <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center z-10 my-auto">
-          {/* Left Column: Editorial Content, Fiber Diagnostics, and Process Highlights */}
-          <div className="lg:col-span-6 w-full max-w-xl mx-auto lg:max-w-none text-left space-y-4 sm:space-y-5">
+      {/* 2. Soft Dark Vignette & Gradient Overlays: Preserves left side contrast while keeping right side open */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#060813] via-[#060813]/85 sm:via-[#060813]/70 to-transparent z-[1] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#060813]/90 via-transparent to-[#060813]/60 z-[1] pointer-events-none lg:hidden" />
+
+      {/* 3. Main Content Container: Left Column has Editorial Content; Right side has NO text or labels */}
+      <div className="relative z-10 h-full w-full max-w-7xl mx-auto flex flex-col justify-center px-4 sm:px-8 lg:px-16 pointer-events-none">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full my-auto pointer-events-auto">
+          {/* Left Column: Bold Typography, Description & Micro-Metrics */}
+          <div className="lg:col-span-6 w-full max-w-xl mx-auto lg:max-w-none text-left space-y-4 sm:space-y-6">
             {/* Bold Headline */}
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-sans font-black text-white tracking-tight leading-[1.08]">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-black text-white tracking-tight leading-[1.08] [text-shadow:0_2px_20px_rgb(0_0_0/0.95)]">
               Microscopic Fiber <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-indigo-200 to-amber-300">
                 Aqueous Weave Restoration
@@ -226,13 +230,13 @@ export default function ReplicaFiberEngineering() {
             </h2>
 
             {/* Editorial Description */}
-            <p className="text-slate-300 font-bold text-base sm:text-lg leading-relaxed">
+            <p className="text-slate-200 font-bold text-base sm:text-lg leading-relaxed [text-shadow:0_1px_10px_rgb(0_0_0/0.95)]">
               Witness individualized warp and weft yarns revitalize under scroll-controlled molecular ozone cavitation. Compaction soils dissolve at 32°C without fiber friction, restoring original thread elasticity, hand softness, and tailored drape.
             </p>
 
             {/* Precision Micro-Metrics Deck */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5 pt-1">
-              <div className="p-4 rounded-2xl bg-white/[0.06] hover:bg-white/[0.1] border border-white/15 backdrop-blur-md transition-all space-y-1.5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 pt-1">
+              <div className="p-4 sm:p-5 rounded-2xl bg-black/60 hover:bg-black/75 border border-white/20 backdrop-blur-md shadow-xl transition-all space-y-2">
                 <div className="flex items-center gap-2.5 text-amber-300 font-black text-base">
                   <Sparkles className="size-5 text-amber-400" />
                   <span>0.02μ Aqueous O₃</span>
@@ -242,7 +246,7 @@ export default function ReplicaFiberEngineering() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-2xl bg-white/[0.06] hover:bg-white/[0.1] border border-white/15 backdrop-blur-md transition-all space-y-1.5">
+              <div className="p-4 sm:p-5 rounded-2xl bg-black/60 hover:bg-black/75 border border-white/20 backdrop-blur-md shadow-xl transition-all space-y-2">
                 <div className="flex items-center gap-2.5 text-purple-300 font-black text-base">
                   <Shield className="size-5 text-purple-400" />
                   <span>Zero Yarn Abrasion</span>
@@ -252,55 +256,10 @@ export default function ReplicaFiberEngineering() {
                 </p>
               </div>
             </div>
-
-            {/* Live Telemetry Status Bar */}
-            <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-white/15">
-              <div className="flex items-center gap-2.5 text-base font-extrabold text-slate-200">
-                <Activity className="size-5 text-amber-400 animate-pulse" />
-                <span>Micro-Weave Scan: Tier 01 Active</span>
-              </div>
-
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-base font-black text-amber-300">
-                <Cpu className="size-4 text-purple-300" />
-                <span>FRAME {padZero(currentFrame, 3)} / {TOTAL_FRAMES}</span>
-                <span className="text-slate-400 font-medium">({scrollProgress}%)</span>
-              </div>
-            </div>
           </div>
 
-          {/* Right Column: Scroll-Driven Fiber Canvas Display */}
-          <div className="lg:col-span-6 w-full flex items-center justify-center">
-            <div className="relative w-full max-w-lg lg:max-w-none h-[280px] sm:h-[380px] md:h-[440px] lg:h-[500px] rounded-[32px] sm:rounded-[40px] overflow-hidden border-2 border-white/20 bg-black/80 shadow-[0_25px_60px_-10px_rgba(0,0,0,0.9),0_0_35px_rgba(126,34,206,0.25)] ring-1 ring-white/15 group">
-              {/* Inner High Performance Canvas */}
-              <canvas
-                ref={canvasRef}
-                className="w-full h-full block object-cover"
-              />
-
-              {/* Glassmorphic Shine Overlay */}
-              <div className="absolute inset-0 rounded-[30px] sm:rounded-[38px] border border-white/20 pointer-events-none" />
-              <div className="absolute top-3 left-6 right-6 h-6 bg-gradient-to-b from-white/25 to-transparent rounded-full blur-sm pointer-events-none" />
-
-              {/* Bottom Live Fiber Overlay Banner */}
-              <div className="absolute bottom-4 left-4 right-4 p-3 rounded-2xl bg-black/75 backdrop-blur-md border border-white/20 flex items-center justify-between pointer-events-none text-left">
-                <div className="space-y-0.5">
-                  <div className="text-base font-black text-white flex items-center gap-2">
-                    <span className="size-2 rounded-full bg-emerald-400 animate-ping" />
-                    <span>Real-Time Thread Tension Telemetry</span>
-                  </div>
-                  <div className="text-base font-bold text-slate-300">
-                    High-Definition Macro Weave Aqueous Inspection
-                  </div>
-                </div>
-
-                <div className="hidden sm:block text-right">
-                  <span className="text-base font-black text-amber-400 uppercase tracking-wider">
-                    HD 1080P
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* Right Column: Intentionally Empty — Pure cinematic view of the background fiber frames with ZERO text or labels */}
+          <div className="lg:col-span-6 w-full hidden lg:block pointer-events-none" />
         </div>
       </div>
     </section>
