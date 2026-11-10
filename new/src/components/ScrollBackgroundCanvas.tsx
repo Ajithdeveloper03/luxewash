@@ -272,6 +272,8 @@ export default function ScrollBackgroundCanvas() {
           display: "block",
         }}
       />
+      {/* Subtle tint overlay for mobile and tablet (till medium screens) to enhance text contrast */}
+      <div className="absolute inset-0 bg-slate-950/25 sm:bg-slate-950/20 lg:bg-transparent pointer-events-none transition-colors duration-300" />
     </div>
   );
 }
