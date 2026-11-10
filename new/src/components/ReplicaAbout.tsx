@@ -17,38 +17,42 @@ export default function ReplicaAbout() {
         gsap.registerPlugin(ScrollTrigger);
 
         ctx = gsap.context(() => {
-          gsap.fromTo(
-            leftRef.current,
-            { opacity: 0, x: -30 },
-            {
-              opacity: 1,
-              x: 0,
-              duration: 1,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: "top 75%",
-                end: "center center",
-                scrub: 1.0,
-              },
-            }
-          );
-          gsap.fromTo(
-            rightRef.current,
-            { opacity: 0, x: 30 },
-            {
-              opacity: 1,
-              x: 0,
-              duration: 1,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: "top 75%",
-                end: "center center",
-                scrub: 1.0,
-              },
-            }
-          );
+          if (leftRef.current) {
+            gsap.fromTo(
+              leftRef.current,
+              { opacity: 0, x: -30 },
+              {
+                opacity: 1,
+                x: 0,
+                duration: 1,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: sectionRef.current,
+                  start: "top 75%",
+                  end: "center center",
+                  scrub: 1.0,
+                },
+              }
+            );
+          }
+          if (rightRef.current) {
+            gsap.fromTo(
+              rightRef.current,
+              { opacity: 0, x: 30 },
+              {
+                opacity: 1,
+                x: 0,
+                duration: 1,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: sectionRef.current,
+                  start: "top 75%",
+                  end: "center center",
+                  scrub: 1.0,
+                },
+              }
+            );
+          }
         }, sectionRef);
       }
     );

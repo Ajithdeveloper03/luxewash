@@ -17,39 +17,43 @@ export default function ReplicaIndustries() {
         gsap.registerPlugin(ScrollTrigger);
 
         ctx = gsap.context(() => {
-          gsap.fromTo(
-            leftCardsRef.current,
-            { opacity: 0, x: -35 },
-            {
-              opacity: 1,
-              x: 0,
-              duration: 1,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: "top 75%",
-                end: "center center",
-                scrub: 1.0,
-              },
-            }
-          );
+          if (leftCardsRef.current) {
+            gsap.fromTo(
+              leftCardsRef.current,
+              { opacity: 0, x: -35 },
+              {
+                opacity: 1,
+                x: 0,
+                duration: 1,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: sectionRef.current,
+                  start: "top 75%",
+                  end: "center center",
+                  scrub: 1.0,
+                },
+              }
+            );
+          }
 
-          gsap.fromTo(
-            rightCardsRef.current,
-            { opacity: 0, x: 35 },
-            {
-              opacity: 1,
-              x: 0,
-              duration: 1,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: "top 75%",
-                end: "center center",
-                scrub: 1.0,
-              },
-            }
-          );
+          if (rightCardsRef.current) {
+            gsap.fromTo(
+              rightCardsRef.current,
+              { opacity: 0, x: 35 },
+              {
+                opacity: 1,
+                x: 0,
+                duration: 1,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: sectionRef.current,
+                  start: "top 75%",
+                  end: "center center",
+                  scrub: 1.0,
+                },
+              }
+            );
+          }
         }, sectionRef);
       }
     );

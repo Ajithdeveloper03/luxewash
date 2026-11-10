@@ -18,54 +18,60 @@ export default function ReplicaExperience() {
         gsap.registerPlugin(ScrollTrigger);
 
         ctx = gsap.context(() => {
-          gsap.fromTo(
-            leftCardsRef.current,
-            { opacity: 0, x: -35 },
-            {
-              opacity: 1,
-              x: 0,
-              duration: 1,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: "top 75%",
-                end: "center center",
-                scrub: 1.0,
-              },
-            }
-          );
-          gsap.fromTo(
-            rightCardsRef.current,
-            { opacity: 0, x: 35 },
-            {
-              opacity: 1,
-              x: 0,
-              duration: 1,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: "top 75%",
-                end: "center center",
-                scrub: 1.0,
-              },
-            }
-          );
-          gsap.fromTo(
-            centerRef.current,
-            { opacity: 0, scale: 0.8 },
-            {
-              opacity: 1,
-              scale: 1,
-              duration: 1,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: "top 75%",
-                end: "center center",
-                scrub: 1.0,
-              },
-            }
-          );
+          if (leftCardsRef.current) {
+            gsap.fromTo(
+              leftCardsRef.current,
+              { opacity: 0, x: -35 },
+              {
+                opacity: 1,
+                x: 0,
+                duration: 1,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: sectionRef.current,
+                  start: "top 75%",
+                  end: "center center",
+                  scrub: 1.0,
+                },
+              }
+            );
+          }
+          if (rightCardsRef.current) {
+            gsap.fromTo(
+              rightCardsRef.current,
+              { opacity: 0, x: 35 },
+              {
+                opacity: 1,
+                x: 0,
+                duration: 1,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: sectionRef.current,
+                  start: "top 75%",
+                  end: "center center",
+                  scrub: 1.0,
+                },
+              }
+            );
+          }
+          if (centerRef.current) {
+            gsap.fromTo(
+              centerRef.current,
+              { opacity: 0, scale: 0.8 },
+              {
+                opacity: 1,
+                scale: 1,
+                duration: 1,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: sectionRef.current,
+                  start: "top 75%",
+                  end: "center center",
+                  scrub: 1.0,
+                },
+              }
+            );
+          }
         }, sectionRef);
       }
     );
@@ -116,7 +122,7 @@ export default function ReplicaExperience() {
         </div>
 
         {/* Center Area: Open Center View with circular pause indicator (Matching Image 2) */}
-        {/* <div
+        <div
           ref={centerRef}
           className="hidden lg:flex flex-col items-center justify-center pointer-events-none select-none my-auto"
         >
@@ -126,7 +132,7 @@ export default function ReplicaExperience() {
               <span className="w-1.5 h-6 bg-white rounded-full" />
             </div>
           </div>
-        </div> */}
+        </div>
 
         <div
           ref={rightCardsRef}

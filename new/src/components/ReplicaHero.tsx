@@ -20,11 +20,13 @@ export default function ReplicaHero({ onOpenBooking }: ReplicaHeroProps) {
     let ctx: any;
     Promise.all([import("gsap")]).then(([{ gsap }]) => {
       ctx = gsap.context(() => {
-        gsap.fromTo(
-          windowRef.current,
-          { opacity: 0, scale: 0.94, y: 15 },
-          { opacity: 1, scale: 1, y: 0, duration: 1.1, ease: "power2.out" }
-        );
+        if (windowRef.current) {
+          gsap.fromTo(
+            windowRef.current,
+            { opacity: 0, scale: 0.94, y: 15 },
+            { opacity: 1, scale: 1, y: 0, duration: 1.1, ease: "power2.out" }
+          );
+        }
       }, heroRef);
     });
 
