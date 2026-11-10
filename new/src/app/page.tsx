@@ -20,7 +20,7 @@ export default function Home() {
   };
 
   return (
-    <main className="relative min-h-screen text-slate-900 selection:bg-purple-200 selection:text-purple-950 font-sans bg-transparent">
+    <main className="relative min-h-screen text-slate-900 selection:bg-purple-200 selection:text-purple-950 font-sans bg-transparent w-full max-w-full overflow-x-hidden">
       {/* 100% Pure Scroll-Driven Background Canvas (Zero Overlay) */}
       <ScrollBackgroundCanvas />
 

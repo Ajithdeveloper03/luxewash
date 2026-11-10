@@ -68,10 +68,11 @@ export default function ReplicaTestimonial() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[100vh] h-auto lg:h-screen lg:max-h-screen w-full flex flex-col justify-center items-center py-6 sm:py-8 lg:py-10 px-4 sm:px-8 lg:px-16 z-10 box-border overflow-y-auto lg:overflow-hidden"
+      id="testimonial"
+      className="relative min-h-[100vh] h-auto lg:h-screen lg:max-h-screen w-full max-w-full flex flex-col justify-center items-center py-6 sm:py-8 lg:py-10 px-4 sm:px-8 lg:px-16 z-10 box-border overflow-x-hidden overflow-y-auto lg:overflow-hidden"
     >
       {/* Main Container: Left Portrait Card + Right Indigo Glassmorphic Metric Card (Exact Image 1 Replica) */}
-      <div className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6 lg:gap-8 items-stretch z-10 my-auto">
+      <div className="w-full max-w-xl md:max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6 lg:gap-8 items-stretch z-10 my-auto">
         {/* Left: Clean Rounded Portrait Card (Matching Image 1) */}
         <div
           ref={photoCardRef}
@@ -102,28 +103,28 @@ export default function ReplicaTestimonial() {
           {/* Metrics Row: 3 bold columns side-by-side (Matching Image 1 Layout & Hierarchy) */}
           <div className="grid grid-cols-3 gap-2 sm:gap-4 lg:gap-6 border-t border-white/20 pt-5 sm:pt-6">
             <div>
-              <span className="block font-sans font-black text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight">
+              <span className="block font-sans font-black text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white tracking-tight">
                 ₹25L+
               </span>
-              <span className="block font-sans text-base lg:text-lg font-bold text-blue-200 mt-1 leading-snug">
+              <span className="block font-sans text-base lg:text-lg font-bold text-blue-200 mt-1 leading-tight break-words">
                 Annual Savings
               </span>
             </div>
 
             <div>
-              <span className="block font-sans font-black text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight">
+              <span className="block font-sans font-black text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white tracking-tight">
                 +40%
               </span>
-              <span className="block font-sans text-base lg:text-lg font-bold text-blue-200 mt-1 leading-snug">
+              <span className="block font-sans text-base lg:text-lg font-bold text-blue-200 mt-1 leading-tight break-words">
                 Fabric Lifespan
               </span>
             </div>
 
             <div>
-              <span className="block font-sans font-black text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight">
+              <span className="block font-sans font-black text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white tracking-tight">
                 100%
               </span>
-              <span className="block font-sans text-base lg:text-lg font-bold text-blue-200 mt-1 leading-snug">
+              <span className="block font-sans text-base lg:text-lg font-bold text-blue-200 mt-1 leading-tight break-words">
                 Pristine Rating
               </span>
             </div>

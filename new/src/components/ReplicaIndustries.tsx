@@ -80,7 +80,7 @@ export default function ReplicaIndustries() {
     <section
       ref={sectionRef}
       id="industries"
-      className="relative min-h-[100vh] h-auto lg:h-screen lg:max-h-screen w-full flex flex-col justify-between items-center py-6 sm:py-8 lg:py-10 px-4 sm:px-8 lg:px-16 z-10 box-border overflow-y-auto lg:overflow-hidden"
+      className="relative min-h-[100vh] h-auto lg:h-screen lg:max-h-screen w-full max-w-full flex flex-col justify-between items-center py-6 sm:py-8 lg:py-10 px-4 sm:px-8 lg:px-16 z-10 box-border overflow-x-hidden overflow-y-auto lg:overflow-hidden"
     >
       {/* Dynamic Content Wrapper: Visible as usual with reduced spacing */}
       <div className="w-full max-w-7xl mx-auto h-full flex flex-col justify-center items-center gap-3 sm:gap-4 lg:gap-5 z-10">
@@ -102,7 +102,7 @@ export default function ReplicaIndustries() {
           {/* Left Side: 2 Cards with light opacity & blurriness */}
           <div
             ref={leftCardsRef}
-            className="w-full lg:w-[380px] xl:w-[420px] flex flex-col gap-3.5 sm:gap-4.5"
+            className="w-full max-w-xl mx-auto lg:max-w-none lg:w-[380px] xl:w-[420px] flex flex-col gap-3.5 sm:gap-4.5"
           >
             {/* Card 1: Top Left */}
             <div className="p-5 sm:p-6 rounded-[26px] sm:rounded-[30px] bg-white/50 hover:bg-white/65 border border-white/60 backdrop-blur-md shadow-xl space-y-2.5 transition-all text-left">
@@ -137,7 +137,7 @@ export default function ReplicaIndustries() {
           {/* Right Side: 2 Cards with increased opacity & blurriness */}
           <div
             ref={rightCardsRef}
-            className="w-full lg:w-[380px] xl:w-[420px] flex flex-col gap-3.5 sm:gap-4.5"
+            className="w-full max-w-xl mx-auto lg:max-w-none lg:w-[380px] xl:w-[420px] flex flex-col gap-3.5 sm:gap-4.5"
           >
             {/* Card 3: Top Right */}
             <div className="p-5 sm:p-6 rounded-[26px] sm:rounded-[30px] bg-white/50 hover:bg-white/65 border border-white/60 backdrop-blur-md shadow-xl space-y-2.5 transition-all text-left">
@@ -167,8 +167,8 @@ export default function ReplicaIndustries() {
           </div>
         </div>
 
-        {/* Bottom Logo Slider: Fullest Screen Width (100vw), No Background, Gaps Between Logos */}
-        <div className="w-screen relative left-1/2 -translate-x-1/2 overflow-hidden py-3 sm:py-4 border-y border-white/20 z-10 select-none">
+        {/* Bottom Logo Slider: Full Edge-to-Edge Without Any Horizontal Overflow */}
+        <div className="-mx-4 sm:-mx-8 lg:-mx-16 w-[calc(100%+2rem)] sm:w-[calc(100%+4rem)] lg:w-[calc(100%+8rem)] max-w-none overflow-hidden py-3 sm:py-4 border-y border-white/20 z-10 select-none">
           <div className="animate-marquee flex items-center gap-12 sm:gap-16 lg:gap-20 whitespace-nowrap">
             {/* First set of logos */}
             {brands.map((b, i) => {

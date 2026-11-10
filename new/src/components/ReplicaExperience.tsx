@@ -7,7 +7,6 @@ export default function ReplicaExperience() {
   const sectionRef = useRef<HTMLElement>(null);
   const leftCardsRef = useRef<HTMLDivElement>(null);
   const rightCardsRef = useRef<HTMLDivElement>(null);
-  const centerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -56,24 +55,6 @@ export default function ReplicaExperience() {
               }
             );
           }
-          if (centerRef.current && sectionRef.current) {
-            gsap.fromTo(
-              centerRef.current,
-              { opacity: 0, scale: 0.8 },
-              {
-                opacity: 1,
-                scale: 1,
-                duration: 1,
-                ease: "power2.out",
-                scrollTrigger: {
-                  trigger: sectionRef.current,
-                  start: "top 75%",
-                  end: "center center",
-                  scrub: 1.0,
-                },
-              }
-            );
-          }
         }, sectionRef.current);
       }
     );
@@ -87,14 +68,14 @@ export default function ReplicaExperience() {
     <section
       ref={sectionRef}
       id="experience"
-      className="relative min-h-[100vh] h-auto lg:h-screen lg:max-h-screen w-full flex flex-col justify-center items-center py-6 sm:py-8 lg:py-10 px-4 sm:px-8 lg:px-16 z-10 box-border overflow-y-auto lg:overflow-hidden"
+      className="relative min-h-[100vh] h-auto lg:h-screen lg:max-h-screen w-full max-w-full flex flex-col justify-center items-center py-6 sm:py-8 lg:py-10 px-4 sm:px-8 lg:px-16 z-10 box-border overflow-x-hidden overflow-y-auto lg:overflow-hidden"
     >
       {/* Main Flanking Layout (Exact Image 2 Replica): Left 2 Cards + Open Center + Right 2 Cards */}
       <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-4 sm:gap-6 lg:gap-8 z-10 my-auto">
         {/* Left Flanking Column: 2 Cards (Gradient style with rich opacity, matching Image 2) */}
         <div
           ref={leftCardsRef}
-          className="w-full lg:w-[380px] xl:w-[420px] flex flex-col gap-4 sm:gap-5"
+          className="w-full max-w-xl mx-auto lg:max-w-none lg:w-[380px] xl:w-[420px] flex flex-col gap-4 sm:gap-5"
         >
           {/* Card 1: Top Left - Pure Laundry */}
           <div className="p-5 sm:p-6 lg:p-7 rounded-[26px] sm:rounded-[30px] bg-gradient-to-br from-[#1d315c]/75 via-[#14203d]/80 to-[#0b1226]/85 hover:from-[#233a6b]/85 hover:via-[#19274a]/90 hover:to-[#0e1630]/95 border border-white/25 backdrop-blur-md shadow-2xl shadow-blue-950/30 space-y-3 transition-all text-left group">
@@ -123,22 +104,12 @@ export default function ReplicaExperience() {
           </div>
         </div>
 
-        {/* Center Area: Open Center View with circular pause indicator (Matching Image 2) */}
-        <div
-          ref={centerRef}
-          className="hidden lg:flex flex-col items-center justify-center pointer-events-none select-none my-auto"
-        >
-          <div className="size-16 sm:size-20 rounded-full bg-slate-900/50 border border-white/40 backdrop-blur-[2px] shadow-2xl flex items-center justify-center text-white">
-            <div className="flex gap-2 items-center justify-center">
-              <span className="w-1.5 h-6 bg-white rounded-full" />
-              <span className="w-1.5 h-6 bg-white rounded-full" />
-            </div>
-          </div>
-        </div>
+        {/* Center Area: Open Center View */}
+        <div className="hidden lg:block w-32 xl:w-48 pointer-events-none" />
 
         <div
           ref={rightCardsRef}
-          className="w-full lg:w-[380px] xl:w-[420px] flex flex-col gap-4 sm:gap-5"
+          className="w-full max-w-xl mx-auto lg:max-w-none lg:w-[380px] xl:w-[420px] flex flex-col gap-4 sm:gap-5"
         >
           {/* Card 3: Top Right - Pure Laundry */}
           <div className="p-5 sm:p-6 lg:p-7 rounded-[26px] sm:rounded-[30px] bg-gradient-to-br from-[#1d315c]/75 via-[#14203d]/80 to-[#0b1226]/85 hover:from-[#233a6b]/85 hover:via-[#19274a]/90 hover:to-[#0e1630]/95 border border-white/25 backdrop-blur-md shadow-2xl shadow-blue-950/30 space-y-3 transition-all text-left group">

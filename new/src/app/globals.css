@@ -17,13 +17,18 @@
     scroll-behavior: smooth;
     background-color: transparent;
     color: #0f172a;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
   }
 
   body {
     background-color: transparent;
     color: #0f172a;
     font-family: var(--font-sans);
-    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
     margin: 0;
   }
 

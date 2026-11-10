@@ -88,7 +88,7 @@ export default function ReplicaFeatures() {
     <section
       id="services"
       ref={containerRef}
-      className="relative min-h-[100vh] h-auto lg:h-screen lg:max-h-screen w-full flex flex-col justify-center items-center py-6 sm:py-8 lg:py-10 px-4 sm:px-8 lg:px-16 z-10 box-border gap-4 sm:gap-6 overflow-y-auto lg:overflow-hidden"
+      className="relative min-h-[100vh] h-auto lg:h-screen lg:max-h-screen w-full max-w-full flex flex-col justify-center items-center py-6 sm:py-8 lg:py-10 px-4 sm:px-8 lg:px-16 z-10 box-border gap-4 sm:gap-6 overflow-x-hidden overflow-y-auto lg:overflow-hidden"
     >
       {/* Top Header: Title */}
       <div className="w-full flex flex-col items-center justify-center text-center z-10">
@@ -100,7 +100,7 @@ export default function ReplicaFeatures() {
       {/* Cards strictly on 2 sides: Left 2 Cards + Open Center + Right 2 Cards (Light Opacity & Blur) */}
       <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-4 sm:gap-6 lg:gap-8 z-10">
         {/* Left Column: 2 Cards */}
-        <div className="w-full lg:w-[380px] xl:w-[420px] flex flex-col gap-3.5 sm:gap-4.5">
+        <div className="w-full max-w-xl mx-auto lg:max-w-none lg:w-[380px] xl:w-[420px] flex flex-col gap-3.5 sm:gap-4.5">
           {SERVICES_CARDS.slice(0, 2).map((card, idx) => {
             const Icon = card.icon;
             return (
@@ -142,7 +142,7 @@ export default function ReplicaFeatures() {
         <div className="hidden lg:block w-32 xl:w-48 pointer-events-none" />
 
         {/* Right Column: 2 Cards */}
-        <div className="w-full lg:w-[380px] xl:w-[420px] flex flex-col gap-3.5 sm:gap-4.5">
+        <div className="w-full max-w-xl mx-auto lg:max-w-none lg:w-[380px] xl:w-[420px] flex flex-col gap-3.5 sm:gap-4.5">
           {SERVICES_CARDS.slice(2, 4).map((card, idx) => {
             const realIdx = idx + 2;
             const Icon = card.icon;

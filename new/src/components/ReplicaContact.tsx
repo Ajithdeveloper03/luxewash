@@ -27,12 +27,12 @@ export default function ReplicaContact() {
   return (
     <section
       id="contact"
-      className="relative min-h-[100vh] h-auto lg:h-screen lg:max-h-screen w-full flex flex-col justify-center items-center py-6 sm:py-8 lg:py-10 px-4 sm:px-8 lg:px-16 z-10 box-border overflow-y-auto lg:overflow-hidden"
+      className="relative min-h-[100vh] h-auto lg:h-screen lg:max-h-screen w-full max-w-full flex flex-col justify-center items-center py-6 sm:py-8 lg:py-10 px-4 sm:px-8 lg:px-16 z-10 box-border overflow-x-hidden overflow-y-auto lg:overflow-hidden"
     >
       {/* Main 2-Column Layout: Left Editorial, Right Booking Form */}
-      <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center z-10 my-auto">
+      <div className="w-full max-w-xl lg:max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center z-10 my-auto">
         {/* Left Column: Large Editorial & Dispatch Telemetry */}
-        <div className="lg:col-span-5 text-left space-y-3.5 sm:space-y-4">
+        <div className="lg:col-span-5 w-full max-w-xl mx-auto lg:max-w-none text-left space-y-3.5 sm:space-y-4">
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-950 tracking-tight leading-[1.08] [text-shadow:0_1px_10px_rgb(255_255_255/0.95)]">
             Schedule Your <br />
             <span className="text-purple-950">White-Glove Laundry Pickup</span>
@@ -43,17 +43,6 @@ export default function ReplicaContact() {
           </p>
 
           <div className="space-y-2.5 pt-1">
-            {/* <div className="p-3.5 sm:p-4 rounded-2xl bg-white/50 hover:bg-white/65 border border-white/60 backdrop-blur-md shadow-sm flex items-center justify-between transition-all"> */}
-              {/* <div className="flex items-center gap-2.5 text-base text-purple-950 font-black">
-                <Clock className="size-5 text-amber-600" />
-                <span>Next Laundry Courier: Within 18 Minutes</span>
-              </div> */}
-              {/* <span className="inline-flex items-center gap-1.5 text-base font-black text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full border border-emerald-300">
-                <span className="size-2.5 rounded-full bg-emerald-600 animate-pulse" />
-                Active
-              </span> */}
-            {/* </div> */}
-
             <div className="p-3.5 sm:p-4 rounded-2xl bg-white/50 hover:bg-white/65 border border-white/60 backdrop-blur-md shadow-sm flex items-center justify-between transition-all">
               <div className="flex items-center gap-2.5 text-base text-purple-950 font-black">
                 <Phone className="size-5 text-purple-700" />
@@ -67,7 +56,7 @@ export default function ReplicaContact() {
         </div>
 
         {/* Right Column: Glassmorphic Booking Form with increased opacity & blur */}
-        <div className="lg:col-span-7">
+        <div className="lg:col-span-7 w-full max-w-xl mx-auto lg:max-w-none">
           <div className="bg-white/60 border border-white/70 rounded-3xl p-5 sm:p-7 backdrop-blur-md shadow-2xl shadow-purple-950/10 space-y-4">
             {submitted ? (
               <div className="py-8 text-center space-y-2.5 animate-in fade-in duration-300">
@@ -86,7 +75,7 @@ export default function ReplicaContact() {
                   <label className="block text-base font-black text-slate-950 uppercase tracking-wider mb-2">
                     Select Laundry Service
                   </label>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {services.map((service) => (
                       <button
                         key={service}

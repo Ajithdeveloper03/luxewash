@@ -58,7 +58,7 @@ export default function ReplicaHero({ onOpenBooking }: ReplicaHeroProps) {
     <section
       ref={heroRef}
       id="home"
-      className="relative min-h-[100vh] h-auto md:h-screen md:max-h-screen w-full flex flex-col justify-between items-center py-4 sm:py-6 lg:py-8 px-4 sm:px-8 lg:px-16 z-10 overflow-hidden box-border"
+      className="relative min-h-[100vh] h-auto lg:h-screen lg:max-h-screen w-full max-w-full flex flex-col justify-between items-center py-4 sm:py-6 lg:py-8 px-4 sm:px-8 lg:px-16 z-10 overflow-hidden box-border"
     >
       {/* Top Header / Navigation Bar */}
       <header className="relative w-full flex items-center justify-between z-30 py-2 sm:py-3">
@@ -74,8 +74,8 @@ export default function ReplicaHero({ onOpenBooking }: ReplicaHeroProps) {
           />
         </a>
 
-        {/* Center: Capsule Pill Navigation with Large Font */}
-        <nav className="hidden md:flex items-center gap-1.5 bg-white/75 border border-purple-200/60 rounded-full px-3.5 py-2 backdrop-blur-[2px] shadow-md shadow-purple-950/5">
+        {/* Center: Capsule Pill Navigation with Large Font (Shown on desktop lg: >= 1024px to prevent tablet cramping) */}
+        <nav className="hidden lg:flex items-center gap-1.5 bg-white/75 border border-purple-200/60 rounded-full px-3.5 py-2 backdrop-blur-[2px] shadow-md shadow-purple-950/5">
           {navLinks.map((link) => (
             <a
               key={link.name}
@@ -101,10 +101,10 @@ export default function ReplicaHero({ onOpenBooking }: ReplicaHeroProps) {
             <span>Book Laundry Pickup</span>
           </button>
 
-          {/* Mobile hamburger */}
+          {/* Mobile & Tablet hamburger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2.5 rounded-full bg-white/90 border border-purple-200 text-purple-950 shadow-sm"
+            className="lg:hidden p-2.5 rounded-full bg-white/90 border border-purple-200 text-purple-950 shadow-sm"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X className="size-6" /> : <Menu className="size-6" />}
@@ -114,7 +114,7 @@ export default function ReplicaHero({ onOpenBooking }: ReplicaHeroProps) {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-x-4 top-16 z-50 bg-white/95 border border-purple-200 rounded-3xl p-6 backdrop-blur-md space-y-4 shadow-2xl">
+        <div className="lg:hidden fixed inset-x-4 top-20 z-50 bg-white/95 border border-purple-200 rounded-3xl p-6 backdrop-blur-md space-y-4 shadow-2xl">
           <div className="flex flex-col gap-2">
             {navLinks.map((link) => (
               <a
@@ -147,7 +147,7 @@ export default function ReplicaHero({ onOpenBooking }: ReplicaHeroProps) {
       <div className="relative flex-1 w-full flex flex-col items-center justify-center my-auto z-10 px-2 sm:px-4 py-4">
         <div
           ref={windowRef}
-          className="relative w-full max-w-[320px] sm:max-w-md md:max-w-xl lg:max-w-4xl h-[52vh] sm:h-[58vh] md:h-[68vh] max-h-[520px] rounded-[44px] sm:rounded-[70px] md:rounded-[90px] border-[10px] sm:border-[16px] md:border-[20px] border-black/50 bg-white/15 backdrop-blur-[4.5px] shadow-[0_25px_60px_-10px_rgba(0,0,0,0.5),0_0_25px_rgba(0,0,0,0.3),inset_0_0_30px_rgba(0,0,0,0.25)] ring-1 ring-black/50 flex flex-col items-center justify-center text-center px-4 sm:px-8 md:px-10"
+          className="relative w-full max-w-[340px] sm:max-w-md md:max-w-2xl lg:max-w-4xl h-auto min-h-[420px] sm:min-h-[460px] md:min-h-[500px] rounded-[44px] sm:rounded-[70px] md:rounded-[90px] border-[10px] sm:border-[16px] md:border-[20px] border-black/50 bg-white/15 backdrop-blur-[4.5px] shadow-[0_25px_60px_-10px_rgba(0,0,0,0.5),0_0_25px_rgba(0,0,0,0.3),inset_0_0_30px_rgba(0,0,0,0.25)] ring-1 ring-black/50 flex flex-col items-center justify-center text-center p-5 sm:p-8 md:p-10"
         >
           {/* Inner glass reflection shine */}
           <div className="absolute inset-0 rounded-[34px] sm:rounded-[54px] md:rounded-[70px] border border-white/40 pointer-events-none" />
@@ -156,9 +156,9 @@ export default function ReplicaHero({ onOpenBooking }: ReplicaHeroProps) {
           {/* Typography */}
           <div className="relative z-10 max-w-2xl space-y-2.5 sm:space-y-3">
             {/* Soft purple & gold badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 border border-purple-200/80 shadow-sm backdrop-blur-[1px]">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-white/80 border border-purple-200/80 shadow-sm backdrop-blur-[1px]">
               <span className="text-amber-500 font-extrabold text-base">✦</span>
-              <span className="text-base font-extrabold tracking-widest text-purple-950 uppercase">
+              <span className="text-base font-extrabold tracking-normal sm:tracking-wider text-purple-950 uppercase">
                 PREMIUM LAUNDRY & DRY CLEANING
               </span>
               <span className="text-amber-500 font-extrabold text-base">✦</span>

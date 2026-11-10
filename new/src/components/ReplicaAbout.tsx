@@ -68,12 +68,12 @@ export default function ReplicaAbout() {
     <section
       ref={sectionRef}
       id="about"
-      className="relative min-h-[100vh] h-auto lg:h-screen lg:max-h-screen w-full flex flex-col justify-center items-center py-6 sm:py-8 lg:py-10 px-6 sm:px-10 lg:px-16 z-10 box-border overflow-y-auto lg:overflow-hidden"
+      className="relative min-h-[100vh] h-auto lg:h-screen lg:max-h-screen w-full max-w-full flex flex-col justify-center items-center py-6 sm:py-8 lg:py-10 px-4 sm:px-8 lg:px-16 z-10 box-border overflow-x-hidden overflow-y-auto lg:overflow-hidden"
     >
       {/* Main 2-Column Asymmetrical Split Content - Never in the Middle */}
       <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center z-10 my-auto">
         {/* Left Column: Bold Headline & Editorial Statement (Max 6xl) */}
-        <div ref={leftRef} className="lg:col-span-7 text-left space-y-4 sm:space-y-5">
+        <div ref={leftRef} className="lg:col-span-7 w-full max-w-xl mx-auto lg:max-w-none text-left space-y-4 sm:space-y-5">
           <h2 className="text-3xl sm:text-5xl lg:text-6xl font-sans font-black text-slate-950 tracking-tight leading-[1.06] [text-shadow:0_2px_20px_rgb(255_255_255/0.95)]">
             Industrial wash power. <br />
             <span className="text-purple-950">Couture garment precision.</span>
@@ -95,7 +95,7 @@ export default function ReplicaAbout() {
         </div>
 
         {/* Right Column: 3 Stacked Large Cards with increased opacity & frosted blur */}
-        <div ref={rightRef} className="lg:col-span-5 flex flex-col gap-3 sm:gap-3.5">
+        <div ref={rightRef} className="lg:col-span-5 w-full max-w-xl mx-auto lg:max-w-none flex flex-col gap-3 sm:gap-3.5">
           <div className="p-4 sm:p-5 rounded-2xl bg-white/50 hover:bg-white/65 border border-white/60 backdrop-blur-md shadow-xl space-y-1.5 transition-all hover:translate-x-1 duration-200">
             <div className="flex items-center gap-2.5 text-purple-950 font-black text-lg">
               <Sparkles className="size-5 text-amber-500" />
