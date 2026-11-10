@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Playfair+Display:wght@700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-luxury: 'Cinzel Decorative', 'Playfair Display', Georgia, serif;
+
+    --color-purple-primary: #7e22ce;
+    --color-purple-dark: #581c87;
+    --color-gold-accent: #f59e0b;
+    --color-gold-dark: #d97706;
+  }
+
+  html {
+    background-color: #000000;
+    color: #ffffff;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  body {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: var(--font-sans);
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    margin: 0;
+  }
+
+  ::selection {
+    background-color: #ede9fe;
+    color: #581c87;
+  }
+}
+
+.font-luxury {
+  font-family: 'Cinzel Decorative', 'Playfair Display', Georgia, serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #581c87;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f59e0b;
+}
