@@ -16,9 +16,11 @@ export default function ReplicaHero({ onOpenBooking }: ReplicaHeroProps) {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (!heroRef.current) return;
 
     let ctx: any;
     Promise.all([import("gsap")]).then(([{ gsap }]) => {
+      if (!heroRef.current) return;
       ctx = gsap.context(() => {
         if (windowRef.current) {
           gsap.fromTo(
@@ -27,7 +29,7 @@ export default function ReplicaHero({ onOpenBooking }: ReplicaHeroProps) {
             { opacity: 1, scale: 1, y: 0, duration: 1.1, ease: "power2.out" }
           );
         }
-      }, heroRef);
+      }, heroRef.current);
     });
 
     return () => {

@@ -10,14 +10,16 @@ export default function ReplicaAbout() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (!sectionRef.current) return;
 
     let ctx: any;
     Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(
       ([{ gsap }, { ScrollTrigger }]) => {
+        if (!sectionRef.current) return;
         gsap.registerPlugin(ScrollTrigger);
 
         ctx = gsap.context(() => {
-          if (leftRef.current) {
+          if (leftRef.current && sectionRef.current) {
             gsap.fromTo(
               leftRef.current,
               { opacity: 0, x: -30 },
@@ -35,7 +37,7 @@ export default function ReplicaAbout() {
               }
             );
           }
-          if (rightRef.current) {
+          if (rightRef.current && sectionRef.current) {
             gsap.fromTo(
               rightRef.current,
               { opacity: 0, x: 30 },
@@ -53,7 +55,7 @@ export default function ReplicaAbout() {
               }
             );
           }
-        }, sectionRef);
+        }, sectionRef.current);
       }
     );
 

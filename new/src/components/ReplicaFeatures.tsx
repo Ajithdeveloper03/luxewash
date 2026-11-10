@@ -48,15 +48,17 @@ export default function ReplicaFeatures() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (!containerRef.current) return;
 
     let ctx: any;
     Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(
       ([{ gsap }, { ScrollTrigger }]) => {
+        if (!containerRef.current) return;
         gsap.registerPlugin(ScrollTrigger);
 
         ctx = gsap.context(() => {
           cardRefs.current.forEach((el, idx) => {
-            if (!el) return;
+            if (!el || !containerRef.current) return;
             gsap.fromTo(
               el,
               { y: 25 * (idx % 2 === 0 ? 1 : -1), opacity: 0.8 },
@@ -73,7 +75,7 @@ export default function ReplicaFeatures() {
               }
             );
           });
-        }, containerRef);
+        }, containerRef.current);
       }
     );
 

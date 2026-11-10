@@ -11,14 +11,16 @@ export default function ReplicaTestimonial() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (!containerRef.current) return;
 
     let ctx: any;
     Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(
       ([{ gsap }, { ScrollTrigger }]) => {
+        if (!containerRef.current) return;
         gsap.registerPlugin(ScrollTrigger);
 
         ctx = gsap.context(() => {
-          if (photoCardRef.current) {
+          if (photoCardRef.current && containerRef.current) {
             gsap.fromTo(
               photoCardRef.current,
               { opacity: 0, x: -30 },
@@ -36,7 +38,7 @@ export default function ReplicaTestimonial() {
               }
             );
           }
-          if (metricCardRef.current) {
+          if (metricCardRef.current && containerRef.current) {
             gsap.fromTo(
               metricCardRef.current,
               { opacity: 0, x: 30 },
@@ -54,7 +56,7 @@ export default function ReplicaTestimonial() {
               }
             );
           }
-        }, containerRef);
+        }, containerRef.current);
       }
     );
 

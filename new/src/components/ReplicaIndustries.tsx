@@ -10,14 +10,16 @@ export default function ReplicaIndustries() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (!sectionRef.current) return;
 
     let ctx: any;
     Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(
       ([{ gsap }, { ScrollTrigger }]) => {
+        if (!sectionRef.current) return;
         gsap.registerPlugin(ScrollTrigger);
 
         ctx = gsap.context(() => {
-          if (leftCardsRef.current) {
+          if (leftCardsRef.current && sectionRef.current) {
             gsap.fromTo(
               leftCardsRef.current,
               { opacity: 0, x: -35 },
@@ -36,7 +38,7 @@ export default function ReplicaIndustries() {
             );
           }
 
-          if (rightCardsRef.current) {
+          if (rightCardsRef.current && sectionRef.current) {
             gsap.fromTo(
               rightCardsRef.current,
               { opacity: 0, x: 35 },
@@ -54,7 +56,7 @@ export default function ReplicaIndustries() {
               }
             );
           }
-        }, sectionRef);
+        }, sectionRef.current);
       }
     );
 
